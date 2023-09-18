@@ -1,0 +1,5 @@
+C:/Users/noe76/source/repos/Newtonix/out/build/x64-debug/CMakeFiles/edit_cache.dir
+C:/Users/noe76/source/repos/Newtonix/out/build/x64-debug/CMakeFiles/rebuild_cache.dir
+C:/Users/noe76/source/repos/Newtonix/out/build/x64-debug/Newtonix/CMakeFiles/Newtonix.dir
+C:/Users/noe76/source/repos/Newtonix/out/build/x64-debug/Newtonix/CMakeFiles/edit_cache.dir
+C:/Users/noe76/source/repos/Newtonix/out/build/x64-debug/Newtonix/CMakeFiles/rebuild_cache.dir
