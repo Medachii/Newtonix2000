@@ -7,11 +7,14 @@ void ofApp::setup(){
 //Draw a point
 	ofBackground(230,230,250);
 	p = Particule();
-	gravite = Vecteur3D(0,-9.8,0);
+	gravite = Vecteur3D(0,9.8,0);
 	
+	//Initialisation d'une position initiale
+	p.setPosition(Vecteur3D(20,300,0));
 	//Initialisation d'une vitesse initiale
-	p.setVelocite(Vecteur3D(5,5,0));
-
+	p.setVelocite(Vecteur3D(70,-70,0));
+	p.setAcceleration(gravite);
+	
 
 
 	
@@ -19,8 +22,9 @@ void ofApp::setup(){
 
 //--------------------------------------------------------------
 void ofApp::update(){
-	//Calcul de la nouvelle position de la particule
-	p.setPosition(p.getPosition().add(p.getVelocite()));
+	t = ofGetLastFrameTime();
+	p.setPosition(p.getPosition().add(p.getVelocite().mul(t)).add(p.getAcceleration().mul(0.5*t*t)));
+	p.setVelocite(p.getVelocite().add(p.getAcceleration().mul(t)));
 	
 }
 

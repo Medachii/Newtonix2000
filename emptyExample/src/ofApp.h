@@ -7,6 +7,7 @@ class ofApp : public ofBaseApp{
 		
 		Particule p;
 		Vecteur3D gravite;
+		double t;
 
 
 		void setup();
