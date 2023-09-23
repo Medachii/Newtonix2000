@@ -1,15 +1,21 @@
 #pragma once
 #include "ofMain.h"
+//#include "ofxGui/src/ofxGui.h"
 #include "../Vecteur3D.h"
 #include "../Particule.h"
 #include "../Integrateur.h"
+
 class ofApp : public ofBaseApp{
 	public:
 		
-		Particule p;
+		Particule p1;
+		Particule p2;
+
 		Vecteur3D gravite;
 		double t;
 		Integrateur i;
+
+		ofEasyCam cam;
 
 
 		void setup();
@@ -27,4 +33,12 @@ class ofApp : public ofBaseApp{
 		void windowResized(int w, int h);
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
+
+	/*ofxPanel gui;
+
+	ofxFloatSlider m1;
+	ofxFloatSlider m2;
+
+	ofxToggle toggle;
+	ofxButton button;*/
 };
