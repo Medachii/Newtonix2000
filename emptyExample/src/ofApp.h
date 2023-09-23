@@ -2,12 +2,14 @@
 #include "ofMain.h"
 #include "../Vecteur3D.h"
 #include "../Particule.h"
+#include "../Integrateur.h"
 class ofApp : public ofBaseApp{
 	public:
 		
 		Particule p;
 		Vecteur3D gravite;
 		double t;
+		Integrateur i;
 
 
 		void setup();

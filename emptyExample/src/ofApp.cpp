@@ -1,7 +1,6 @@
 #include "ofApp.h"
 
 
-
 //--------------------------------------------------------------
 void ofApp::setup(){
 //Draw a point
@@ -22,10 +21,8 @@ void ofApp::setup(){
 
 //--------------------------------------------------------------
 void ofApp::update(){
-	t = ofGetLastFrameTime();
-	p.setPosition(p.getPosition().add(p.getVelocite().mul(t)).add(p.getAcceleration().mul(0.5*t*t)));
-	p.setVelocite(p.getVelocite().add(p.getAcceleration().mul(t)));
-	
+	i = Integrateur();
+	i.integrer(&p);
 }
 
 //--------------------------------------------------------------

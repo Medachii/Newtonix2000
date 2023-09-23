@@ -9,6 +9,7 @@
     </ClCompile>
     <ClCompile Include="Particule.cpp" />
     <ClCompile Include="Vecteur3D.cpp" />
+    <ClCompile Include="Integrateur.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -21,6 +22,7 @@
     </ClInclude>
     <ClInclude Include="Particule.h" />
     <ClInclude Include="Vecteur3D.h" />
+    <ClInclude Include="Integrateur.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="icon.rc" />
