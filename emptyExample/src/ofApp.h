@@ -1,6 +1,8 @@
 #pragma once
 #include "ofMain.h"
 //#include "ofxGui/src/ofxGui.h"
+//#include "ofParameter.h"
+#include "ofxGui.h"
 #include "../Vecteur3D.h"
 #include "../Particule.h"
 #include "../Integrateur.h"
@@ -16,6 +18,10 @@ class ofApp : public ofBaseApp{
 		Integrateur i;
 
 		ofEasyCam cam;
+
+
+		//create an interface
+	 
 
 
 		void setup();
@@ -34,11 +40,15 @@ class ofApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
 
-	/*ofxPanel gui;
+		
 
-	ofxFloatSlider m1;
-	ofxFloatSlider m2;
 
-	ofxToggle toggle;
-	ofxButton button;*/
+
+		ofxPanel gui;
+
+		ofxFloatSlider m1;
+		ofxFloatSlider m2;
+
+		ofxToggle toggle;
+		ofxButton button;
 };

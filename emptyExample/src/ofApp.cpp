@@ -7,8 +7,11 @@ void ofApp::setup(){
 	//gui.setup();
 //Draw a point
 	ofBackground(230,230,250);
+
+
 	p1 = Particule();
 	p2 = Particule();
+
 
 	gravite = Vecteur3D(0,-9.8,0);
 	
@@ -21,9 +24,12 @@ void ofApp::setup(){
 	p2.setAcceleration(gravite);
 	
 	
-	/*gui.add(m1.setup("m1", 30.0, 0.0, 100.0));
+
+
+	gui.setup();
+	gui.add(m1.setup("m1", 30.0, 0.0, 100.0));
 	gui.add(toggle.setup("toggle", true));
-	gui.add(button.setup("restart"));*/
+	gui.add(button.setup("restart"));
 
 	
 }
@@ -41,18 +47,18 @@ void ofApp::draw(){
 	cam.begin();
 	ofSetColor(255,255,255);
 	ofSetColor(255,0,0);
-	ofDrawArrow(glm::vec3(0,0,0), glm::vec3(100, 0, 0), 10);
+	ofDrawArrow(glm::vec3(0,0,0), glm::vec3(300, 0, 0), 10);
 	ofSetColor(0,255,0);
-	ofDrawArrow(glm::vec3(0, 0, 0), glm::vec3(0, 100, 0), 10);
+	ofDrawArrow(glm::vec3(0, 0, 0), glm::vec3(0, 300, 0), 10);
 	ofSetColor(0,0, 255);
-	ofDrawArrow(glm::vec3(0, 0, 0), glm::vec3(0, 0, 100), 10);
+	ofDrawArrow(glm::vec3(0, 0, 0), glm::vec3(0, 0, 300), 10);
 	ofSetColor(150,0,160);
 	ofDrawSphere(p1.getPosition().getX(), p1.getPosition().getY(), p1.getPosition().getZ(), 10);
 	ofSetColor(30, 150, 160);
 	ofDrawSphere(p2.getPosition().getX(), p2.getPosition().getY(), p2.getPosition().getZ(), 10);
 	cam.end();
 	
-	//gui.draw();
+	gui.draw();
 }
 
 //--------------------------------------------------------------
