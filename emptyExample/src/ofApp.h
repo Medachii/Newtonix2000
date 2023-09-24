@@ -39,6 +39,7 @@ class ofApp : public ofBaseApp{
 		void windowResized(int w, int h);
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
+		void restartButtonPressed();
 
 		
 
@@ -46,9 +47,12 @@ class ofApp : public ofBaseApp{
 
 		ofxPanel gui;
 
-		ofxFloatSlider m1;
-		ofxFloatSlider m2;
+		ofxFloatSlider p2x;
+		ofxFloatSlider p2y;
+		ofxFloatSlider p2z;
+		ofxFloatSlider v2x;
+		ofxFloatSlider v2y;
+		ofxFloatSlider v2z;
 
-		ofxToggle toggle;
-		ofxButton button;
+		ofxButton restartButton;
 };
