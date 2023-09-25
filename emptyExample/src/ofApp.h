@@ -20,7 +20,9 @@ class ofApp : public ofBaseApp{
 		ofEasyCam cam;
 
 
-		//create an interface
+		//create trails of particles
+		vector<Particule> trails;
+
 	 
 
 

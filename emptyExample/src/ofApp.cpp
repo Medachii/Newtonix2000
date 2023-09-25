@@ -23,9 +23,18 @@ void ofApp::setup(){
 	p2.setAcceleration(gravite);
 	
 	
+	//trails of particles
+	trails.push_back(p1);
+	trails.push_back(p2);
+
+
+
+
 
 
 	gui.setup();
+	//modify gui size
+	gui.setSize(300, 300);
 	gui.add(p2x.setup("Position (x) de la balle bleue", 0.0, 0.0, 100.0));
 	gui.add(p2y.setup("Position (y) de la balle bleue", 30.0, 0.0, 100.0));
 	gui.add(p2z.setup("Position (z) de la balle bleue", 0.0, 0.0, 100.0));
@@ -44,6 +53,11 @@ void ofApp::update(){
 	i = Integrateur();
 	i.integrer(&p1);
 	i.integrer(&p2);
+
+	//trails of particles
+	trails.push_back(p1);
+	trails.push_back(p2);
+
 }
 
 void ofApp::restartButtonPressed() {
@@ -54,6 +68,10 @@ void ofApp::restartButtonPressed() {
 	p2.setPosition(Vecteur3D(p2x, p2y, p2z));
 	p2.setVelocite(Vecteur3D(v2x, v2y, v2z));
 	p2.setAcceleration(gravite);
+
+	//trails of particles
+	trails.clear();
+	
 }
 //--------------------------------------------------------------
 void ofApp::draw(){
@@ -70,6 +88,20 @@ void ofApp::draw(){
 	ofDrawSphere(p1.getPosition().getX(), p1.getPosition().getY(), p1.getPosition().getZ(), 10);
 	ofSetColor(30, 150, 160);
 	ofDrawSphere(p2.getPosition().getX(), p2.getPosition().getY(), p2.getPosition().getZ(), 10);
+
+
+
+	//Draw trails of particles
+	for (int i = 0; i < trails.size(); i++) {
+		if (i%2==0) {
+			ofSetColor(150,0, 160);
+		}
+		else {
+			ofSetColor(30,150,160);
+		}
+		ofDrawSphere(trails[i].getPosition().getX(), trails[i].getPosition().getY(), trails[i].getPosition().getZ(), 1);
+	}
+
 
 	cam.end();
 	
