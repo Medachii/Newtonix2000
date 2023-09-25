@@ -8,6 +8,8 @@ class Integrateur
 	public:
 		Integrateur();
 		~Integrateur();
-		void integrer(Particule* p);
+		void integrer(Particule* p,double time);
+
+		double t;
 };
 

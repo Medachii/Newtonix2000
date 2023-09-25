@@ -10,8 +10,12 @@
 class ofApp : public ofBaseApp{
 	public:
 		
-		Particule p1;
-		Particule p2;
+		//list of particles
+		
+
+		vector<Particule> listParticules;
+		vector<Particule> trails;
+		
 
 		Vecteur3D gravite;
 		double t;
@@ -21,7 +25,7 @@ class ofApp : public ofBaseApp{
 
 
 		//create trails of particles
-		vector<Particule> trails;
+		
 
 	 
 
@@ -42,6 +46,7 @@ class ofApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
 		void restartButtonPressed();
+		void addParticleButtonPressed();
 
 		
 
@@ -57,4 +62,5 @@ class ofApp : public ofBaseApp{
 		ofxFloatSlider v2z;
 
 		ofxButton restartButton;
+		ofxButton addParticleButton;
 };
