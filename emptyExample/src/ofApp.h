@@ -6,6 +6,8 @@
 #include "../Vecteur3D.h"
 #include "../Particule.h"
 #include "../Integrateur.h"
+#include "../Collision.h"
+#include "../Ground.h"
 
 class ofApp : public ofBaseApp{
 	public:
@@ -23,8 +25,10 @@ class ofApp : public ofBaseApp{
 
 		ofEasyCam cam;
 
+		Collision collision;
 
-		//create trails of particles
+		Ground ground;
+
 		
 
 	 

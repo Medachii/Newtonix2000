@@ -3,6 +3,9 @@
 
 class Particule
 {
+
+	float rayon = 10;
+
 	// Attributs
 	Vecteur3D position;
 	Vecteur3D velocite;
@@ -24,5 +27,7 @@ class Particule
 		void setVelocite(Vecteur3D velocite);
 		void setAcceleration(Vecteur3D acceleration);
 		// Autres méthodes
+		void setRayon(float rayon);
+		float getRayon();
 };
 

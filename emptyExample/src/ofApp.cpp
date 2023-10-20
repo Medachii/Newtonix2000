@@ -2,20 +2,21 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
 
-
+	ofSetFrameRate(60);
 	ofBackground(230,230,250);
 	restartButton.addListener(this, &ofApp::restartButtonPressed);
 	addParticleButton.addListener(this, &ofApp::addParticleButtonPressed);
 	gravite = Vecteur3D(0, -9.8, 0);
 	Particule p1 = Particule();
 	p1.setPosition(Vecteur3D(0,0,0));
-	p1.setVelocite(Vecteur3D(70,70,70));
+	p1.setVelocite(Vecteur3D(70,70,0));
 	p1.setAcceleration(gravite);
 
 	listParticules.push_back(p1);
 	trails.push_back(p1);
 	
-	//trails of particles
+	
+	ground.setXYZ(0, -100, 0);
 	
 	
 
@@ -38,11 +39,24 @@ void ofApp::setup(){
 //--------------------------------------------------------------
 void ofApp::update(){
 	double t = ofGetLastFrameTime();
+
+	for (int j = 0; j < listParticules.size(); j++) {
+		if (collision.checkCollisionWithGround(listParticules[j], ground)) {
+			listParticules[j] = collision.resolveCollisionWithGround(listParticules[j], ground);
+		}
+
+	}
+
 	i= Integrateur();
 	for (int k = 0; k < listParticules.size(); k++) {
 		i.integrer(&listParticules[k],t);
 		trails.push_back(listParticules[k]);
 	}
+
+	
+
+	
+
 	
 
 	
@@ -86,6 +100,8 @@ void ofApp::addParticleButtonPressed() {
 void ofApp::draw(){
 	//Draw a point at the position of particule p
 	cam.begin();
+	ofSetColor(0, 0, 0);
+	ofDrawBox(ground.getX(), ground.getY(), ground.getZ(), ground.width, ground.height, ground.depth);
 	ofSetColor(255,255,255);
 	ofSetColor(255,0,0);
 	ofDrawArrow(glm::vec3(0,0,0), glm::vec3(300, 0, 0), 10);
@@ -97,9 +113,10 @@ void ofApp::draw(){
 	ofDrawSphere(p1.getPosition().getX(), p1.getPosition().getY(), p1.getPosition().getZ(), 10);*/
 	for (int k = 0; k < listParticules.size(); k++) {
 		ofSetColor(150+k, 0, 160);
-		ofDrawSphere(listParticules[k].getPosition().getX(), listParticules[k].getPosition().getY(), listParticules[k].getPosition().getZ(), 10);
+		ofDrawSphere(listParticules[k].getPosition().getX(), listParticules[k].getPosition().getY(), listParticules[k].getPosition().getZ(), listParticules[k].getRayon());
 	}
 
+	
 
 
 	//Draw trails of particles
