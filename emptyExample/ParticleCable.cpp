@@ -2,10 +2,10 @@
 
 unsigned int ParticleCable::addContact(ParticleContact* contact, unsigned int limit) const {
     // Calcul de la longueur actuelle du câble entre les deux sphères
-    float currentLength = (particle[1]->getPosition() - particle[0]->getPosition()).length();
+    float distance = currentLength();
 
     // Vérification de la violation de la longueur maximale du câble
-    if (currentLength < maxLength) {
+    if (distance < maxLength) {
         return 0; // Pas de contact généré, le câble est dans les limites
     }
 
@@ -18,7 +18,7 @@ unsigned int ParticleCable::addContact(ParticleContact* contact, unsigned int li
     newContact.contactNormal = (particle[1]->getPosition() - particle[0]->getPosition()).normalize();
 
     // Calcul de la pénétration (dépassement de la longueur maximale)
-    newContact.penetration = currentLength - maxLength;
+    newContact.penetration = distance - maxLength;
 
     if (limit > 0) {
         contact[0] = newContact;

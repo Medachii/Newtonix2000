@@ -26,6 +26,20 @@ void ParticleContact::resolveVelocity() {
 
 void ParticleContact::resolveInterpenetration() {
 
+	//somme total de l'interpénétration =  deltaP1 + deltaP2 = d
+	//ratio pondéré par la masse des objets = m1deltaP1 = m2deltaP2
+	//en combinant les deux équations et en appliquant le déplacement dans la direction normale au contact
+	// deltaP1 = d normalvector * m2 / (m1+m2)
+	// deltaP2 = d normalvector * m1 / (m1+m2)
+
+	float m1 = particle[0]->getMasse();
+	float m2 = particle[1]->getMasse();
+	float totalMass = m1 + m2;
+	float deltaP1 = penetration * m2 / totalMass;
+	float deltaP2 = penetration * m1 / totalMass;
+	particle[0]->setPosition(particle[0]->getPosition() + contactNormal.mul(deltaP1));
+	particle[1]->setPosition(particle[1]->getPosition() - contactNormal.mul(deltaP2));
+
 }
 
 

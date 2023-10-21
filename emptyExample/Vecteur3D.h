@@ -26,6 +26,7 @@ public:
 	// Autres méthodes
 	Vecteur3D add(Vecteur3D q);
 	Vecteur3D mul(double k);
+	Vecteur3D sub(Vecteur3D q);
 	Vecteur3D operator+(Vecteur3D q);
 	Vecteur3D operator-(Vecteur3D q);
 	Vecteur3D operator*(float k);

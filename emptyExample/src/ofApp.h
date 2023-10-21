@@ -9,6 +9,7 @@
 #include "../Collision.h"
 #include "../Ground.h"
 #include "../ParticleContactGenerator.h"
+#include "../ParticleCable.h"
 
 class ofApp : public ofBaseApp{
 	public:
@@ -27,8 +28,10 @@ class ofApp : public ofBaseApp{
 		ofEasyCam cam;
 
 		Collision collisionDetector;
-		ParticleContact* contacts[100];
+		ParticleContact contacts[100];
+		ParticleCable cables[100];
 		int numberOfContacts=0;
+		int numberOfCables = 0;
 
 		Ground ground;
 
@@ -40,6 +43,7 @@ class ofApp : public ofBaseApp{
 		void setup();
 		void update();
 		void draw();
+		void initializeParticles();
 		
 		void keyPressed(int key);
 		void keyReleased(int key);

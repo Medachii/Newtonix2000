@@ -1,15 +1,13 @@
 #include "ofApp.h"
-//--------------------------------------------------------------
-void ofApp::setup(){
 
-	ofSetFrameRate(60);
-	ofBackground(230,230,250);
-	restartButton.addListener(this, &ofApp::restartButtonPressed);
-	addParticleButton.addListener(this, &ofApp::addParticleButtonPressed);
+void ofApp::initializeParticles() {
 	gravite = Vecteur3D(0, -9.8, 0);
+
+	//Collisions classiques entre deux particules
+
 	Particule p1 = Particule();
-	p1.setPosition(Vecteur3D(0,0,0));
-	p1.setVelocite(Vecteur3D(70,70,0));
+	p1.setPosition(Vecteur3D(0, 0, 0));
+	p1.setVelocite(Vecteur3D(70, 70, 0));
 	p1.setAcceleration(gravite);
 
 	Particule p2 = Particule();
@@ -22,15 +20,49 @@ void ofApp::setup(){
 	listParticules.push_back(p2);
 	trails.push_back(p1);
 	trails.push_back(p2);
-	
-	
-	ground.setXYZ(0, -100, 0);
-	
-	
 
-	gui.setup();
+	//Collisions cables
+
+	Particule p3 = Particule();
+	p3.setPosition(Vecteur3D(-200., 0, 0));
+	p3.setVelocite(Vecteur3D(70, 70, 0));
+	p3.setAcceleration(gravite);
+
+	Particule p4 = Particule();
+	p4.setPosition(Vecteur3D(-140., 0, 0));
+	p4.setVelocite(Vecteur3D(-70, 70, 0));
+	p4.setAcceleration(gravite);
+
+	ParticleCable cable;
+	cable.particle[0] = &p3;
+	cable.particle[1] = &p4;
+	cable.maxLength = 50;
+	cable.restitution = 1;
+	cables[numberOfCables] = cable;
+	numberOfCables++;
+
+	listParticules.push_back(p3);
+	listParticules.push_back(p4);
+	trails.push_back(p3);
+	trails.push_back(p4);
+
+	ground.setXYZ(0, -100, 0);
+}
+
+//--------------------------------------------------------------
+void ofApp::setup(){
+
+	ofSetFrameRate(60);
+	ofBackground(230,230,250);
+	restartButton.addListener(this, &ofApp::restartButtonPressed);
+	addParticleButton.addListener(this, &ofApp::addParticleButtonPressed);
+	
+	
+	initializeParticles();
+
+	//gui.setup();
 	//modify gui size
-	gui.setSize(300, 300);
+	/*gui.setSize(300, 300);
 	gui.add(p2x.setup("Position (x) de la balle bleue", 0.0, -100.0, 100.0));
 	gui.add(p2y.setup("Position (y) de la balle bleue", 30.0, -100.0, 100.0));
 	gui.add(p2z.setup("Position (z) de la balle bleue", 0.0, -100.0, 100.0));
@@ -39,7 +71,7 @@ void ofApp::setup(){
 	gui.add(v2z.setup("Vitesse (z) de la balle bleue", 70.0, -100.0, 100.0));
 
 	gui.add(addParticleButton.setup("add particle"));
-	gui.add(restartButton.setup("restart"));
+	gui.add(restartButton.setup("restart"));*/
 
 	
 }
@@ -54,7 +86,7 @@ void ofApp::update(){
 		}
 	}
 
-	// Detection des collisions
+	// Detection des collisions classiques
 	for (int m = 0; m < listParticules.size()-1; m++) {
 		for (int n = m + 1; n < listParticules.size(); n++) {
 			if (collisionDetector.checkCollision(listParticules[m], listParticules[n])) {
@@ -66,18 +98,27 @@ void ofApp::update(){
 				sphereContact.penetration = listParticules[m].getRayon() + listParticules[n].getRayon() - (listParticules[m].getPosition() - listParticules[n].getPosition()).norme();
 				sphereContact.contactNormal = (listParticules[m].getPosition() - listParticules[n].getPosition())*(1 / (listParticules[m].getPosition() - listParticules[n].getPosition()).norme());
 				//add sphereContact to contacts (contacts is not a vector)
-				contacts[numberOfContacts] = &sphereContact;
-				numberOfContacts++;
+				if (numberOfContacts < maxCollisions) {
+					contacts[numberOfContacts] = sphereContact;
+					numberOfContacts++;
+				}
 			}
 		}
+	}
+
+	for (int k = 0; k < numberOfCables; k++) {
+		//addcontact
+		numberOfContacts += cables[k].addContact(&contacts[numberOfContacts], maxCollisions - numberOfContacts);
 	}
 	
 
 	// Algorithme de résolution
 
 	for (int i = 0; i < numberOfContacts; i++) {
-		contacts[i]->resolve(t);
+		contacts[i].resolve(t);
 	}
+
+	
 
 	//clear contacts
 	numberOfContacts = 0;
@@ -107,15 +148,12 @@ void ofApp::restartButtonPressed() {
 	p1.setVelocite(Vecteur3D(70, 70, 70));
 	p1.setAcceleration(gravite);*/
 	
-	for (int i = 0; i < listParticules.size(); i++) {
-		listParticules[i].setPosition(Vecteur3D(0, 0, 0));
-		listParticules[i].setVelocite(Vecteur3D(70, 70, 70));
-		listParticules[i].setAcceleration(gravite);
-	}
-	
-
-	//trails of particles
+	listParticules.clear();
 	trails.clear();
+	numberOfContacts = 0;
+	initializeParticles();
+	//trails of particles
+	
 	
 }
 
@@ -160,12 +198,10 @@ void ofApp::draw(){
 
 	//Draw trails of particles
 	for (int i = 0; i < trails.size(); i++) {
-		if (i%2==0) {
-			ofSetColor(150,0, 160);
-		}
-		else {
-			ofSetColor(30,150,160);
-		}
+
+
+		ofSetColor(30,150,160);
+
 		ofDrawSphere(trails[i].getPosition().getX(), trails[i].getPosition().getY(), trails[i].getPosition().getZ(), 1);
 	}
 

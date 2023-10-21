@@ -148,3 +148,13 @@ float Vecteur3D::ProduitScalaire(Vecteur3D q)
 	return x * q.getX() + y * q.getY() + z * q.getZ();
 	
 }
+
+Vecteur3D Vecteur3D::sub(Vecteur3D q)
+{
+	// Substraction de deux vecteurs
+	Vecteur3D r;
+	r.setX(x - q.getX());
+	r.setY(y - q.getY());
+	r.setZ(z - q.getZ());
+	return r;
+}
