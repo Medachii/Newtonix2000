@@ -35,4 +35,5 @@ public:
 	float length();
 	Vecteur3D normalize();
 	float ProduitScalaire(Vecteur3D q);
+	bool operator==(const Vecteur3D& v) const;
 };

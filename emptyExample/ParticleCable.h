@@ -12,6 +12,10 @@ public:
 	void setParticleCable(Particule p1, Particule p2, float maxLength, float restitution);
 	Particule getParticleCable1() const;
 	Particule getParticleCable2() const;
+	void setParticleCable1(Particule p1);
+	void setParticleCable2(Particule p2);
+	float getMaxLength() const;
+	float getRestitution() const;
 
 };
 

@@ -12,6 +12,7 @@
 #include "../ParticleCable.h"
 #include "../ParticleForceGenerator.h"
 #include "../ParticleGravity.h"
+#include "../ParticleRod.h"
 
 class ofApp : public ofBaseApp{
 	public:
@@ -32,9 +33,13 @@ class ofApp : public ofBaseApp{
 		Collision collisionDetector;
 		vector<ParticleContact> contacts;
 		vector <ParticleCable> cables;
+		vector<ParticleRod>	rods;
 		int numberOfContacts=0;
 		int numberOfCables = 0;
+		int numberOfRods = 0;
 
+		int numberOfParticles = 0;
+		
 		Ground ground;
 
 		

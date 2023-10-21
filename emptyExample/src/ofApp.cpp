@@ -10,13 +10,17 @@ void ofApp::initializeParticles() {
 	p1.setPosition(Vecteur3D(0, 0, 0));
 	p1.setVelocite(Vecteur3D(70, 70, 0));
 	p1.setAcceleration(Vecteur3D(0, 0, 0));
-
+	p1.setId(1);
+	p1.setColor(ofColor::blue);
+	numberOfParticles++;
 	Particule p2 = Particule();
 	//p2 goes the other way to collide with p1
 	p2.setPosition(Vecteur3D(100, 0, 0));
 	p2.setVelocite(Vecteur3D(-70, 70, 0));
 	p2.setAcceleration(gravite);
-
+	p2.setId(2);
+	p2.setColor(ofColor::blue);
+	numberOfParticles++;
 	ParticleGravity* Pgravity = new ParticleGravity();
 	registry.my_registry.push_back({&p1,Pgravity});
 	registry.updateForces(0.2);
@@ -30,23 +34,72 @@ void ofApp::initializeParticles() {
 
 	Particule p3 = Particule();
 	p3.setPosition(Vecteur3D(-200., 0, 0));
-	p3.setVelocite(Vecteur3D(70, 70, 0));
+	p3.setVelocite(Vecteur3D(90, 150, 0));
 	p3.setAcceleration(gravite);
-
+	p3.setId(3);
+	p3.setColor(ofColor::green);
+	numberOfParticles++;
 	Particule p4 = Particule();
-	p4.setPosition(Vecteur3D(-140., 0, 0));
-	p4.setVelocite(Vecteur3D(-70, 70, 0));
+	p4.setPosition(Vecteur3D(-60., 0, 0));
+	p4.setVelocite(Vecteur3D(-60, 70, 100));
 	p4.setAcceleration(gravite);
+	p4.setId(4);
+	p4.setColor(ofColor::green);
+	numberOfParticles++;
 
 	ParticleCable cable;
-	cable.setParticleCable(p3, p4, 30, 1);
+	cable.setParticleCable(p3, p4, 200, 0.4);
 	cables.push_back(cable);
+	numberOfCables++;
+
+	Particule p5 = Particule();
+	p5.setPosition(Vecteur3D(-100, 0, 0));
+	p5.setVelocite(Vecteur3D(90, 30, 0));
+	p5.setAcceleration(gravite);
+	p5.setId(5);
+	p5.setColor(ofColor::green);
+
+	ParticleCable cable2;
+	cable2.setParticleCable(p3, p5, 100, 0.4);
+	cables.push_back(cable2);
 	numberOfCables++;
 
 	listParticules.push_back(p3);
 	listParticules.push_back(p4);
+	listParticules.push_back(p5);
 	trails.push_back(p3);
 	trails.push_back(p4);
+	trails.push_back(p5);
+
+
+	//Collisions tiges
+
+	Particule p6 = Particule();
+	p6.setPosition(Vecteur3D(-300, 20, 0));
+	p6.setVelocite(Vecteur3D(30, 100, 0));
+	p6.setAcceleration(gravite);
+	p6.setId(6);
+	p6.setColor(ofColor::red);
+	numberOfParticles++;
+
+	Particule p7 = Particule();
+	p7.setPosition(Vecteur3D(-400, 0, 0));
+	p7.setVelocite(Vecteur3D(100, 200, 20));
+	p7.setAcceleration(gravite);
+	p7.setId(7);
+	p7.setColor(ofColor::red);
+
+	ParticleRod rod;
+	rod.setParticleRod(p6, p7, 100);
+	rods.push_back(rod);
+	numberOfRods++;
+
+	listParticules.push_back(p6);
+	listParticules.push_back(p7);
+	trails.push_back(p6);
+	trails.push_back(p7);
+
+
 
 	ground.setXYZ(0, -100, 0);
 }
@@ -81,7 +134,6 @@ void ofApp::setup(){
 //--------------------------------------------------------------
 void ofApp::update(){
 	double t = ofGetLastFrameTime();
-
 	for (int j = 0; j < listParticules.size(); j++) {
 		if (collisionDetector.checkCollisionWithGround(listParticules[j], ground)) {
 			//TODO
@@ -108,30 +160,69 @@ void ofApp::update(){
 		}
 	}
 
+	//Collision cables
+
 	for (int k = 0; k < numberOfCables; k++) {
 		//addcontact
 		numberOfContacts += cables[k].addContact(contacts, maxCollisions - numberOfContacts);
 	}
 	
+	//Collision rods
+
+	for (int l = 0; l < numberOfRods; l++) {
+		//addcontact
+		numberOfContacts += rods[l].addContact(contacts, maxCollisions - numberOfContacts);
+	}
 
 	// Algorithme de résolution
 	vector<ParticleContact> tempContact;
 	for (int i = 0; i < numberOfContacts; i++) {
-		//can you resolve the contact using reference of particules ?
+		int first = 0;
+		int second = 0;
+		//get the two particles of contacts from listParticules
+		
+		for (int j = 0; j < listParticules.size(); j++) {
+			if (contacts[i].particle[0]->getId() == listParticules[j].getId()) {
+				first = j;
+			}
+			if (contacts[i].particle[1]->getId() == listParticules[j].getId()) {
+				second = j;
+			}
+		}
+		
+
 		ParticleContact temp = contacts[i].resolve(t);
 		tempContact.push_back(temp);
+		//replace in listParticles
+		listParticules[first] = *temp.particle[0];
+		listParticules[second] = *temp.particle[1];
+
 	}
 	//update contacts and replace all particule 
-	contacts = tempContact;
 	
-	//go through all particles in contacts and replace them in listParticules
-	for (int i = 0; i < numberOfContacts; i++) {
+	
+
+	
+	//replace particles in cables with new particles
+	for (int i = 0; i < numberOfCables; i++) {
 		for (int j = 0; j < listParticules.size(); j++) {
-			if (contacts[i].particle[0] == &listParticules[j]) {
-				listParticules[j] = *contacts[i].particle[0];
+			if (cables[i].getParticleCable1().getId() == listParticules[j].getId()) {
+				cables[i].setParticleCable1(listParticules[j]);
 			}
-			if (contacts[i].particle[1] == &listParticules[j]) {
-				listParticules[j] = *contacts[i].particle[1];
+			if (cables[i].getParticleCable2().getId() == listParticules[j].getId()) {
+				cables[i].setParticleCable2(listParticules[j]);
+			}
+		}
+	}
+
+	//replace particles in rods with new particles
+	for (int i = 0; i < numberOfRods; i++) {
+		for (int j = 0; j < listParticules.size(); j++) {
+			if (rods[i].getParticleRod1().getId() == listParticules[j].getId()) {
+				rods[i].setParticleRod1(listParticules[j]);
+			}
+			if (rods[i].getParticleRod2().getId() == listParticules[j].getId()) {
+				rods[i].setParticleRod2(listParticules[j]);
 			}
 		}
 	}
@@ -140,6 +231,8 @@ void ofApp::update(){
 
 	//clear contacts
 	numberOfContacts = 0;
+	contacts.clear();
+	tempContact.clear();
 
 
 
@@ -205,7 +298,7 @@ void ofApp::draw(){
 	/*ofSetColor(150,0,160);
 	ofDrawSphere(p1.getPosition().getX(), p1.getPosition().getY(), p1.getPosition().getZ(), 10);*/
 	for (int k = 0; k < listParticules.size(); k++) {
-		ofSetColor(150+k, 0, 160);
+		ofSetColor(listParticules[k].getColor());
 		ofDrawSphere(listParticules[k].getPosition().getX(), listParticules[k].getPosition().getY(), listParticules[k].getPosition().getZ(), listParticules[k].getRayon());
 	}
 

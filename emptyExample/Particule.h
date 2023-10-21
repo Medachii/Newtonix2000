@@ -1,11 +1,14 @@
 #pragma once
 #include "Vecteur3D.h"
+#include <ofColor.h>
+
 
 class Particule
 {
-
+	int id;
 	float rayon = 10;
 	float masse = 1;
+	ofColor color = ofColor::white;
 
 	// Attributs
 	Vecteur3D position;
@@ -16,7 +19,7 @@ class Particule
 	public:
 		// Constructeurs
 		Particule();
-		Particule(Vecteur3D position, Vecteur3D velocite, Vecteur3D acceleration);
+		Particule(int id,Vecteur3D position, Vecteur3D velocite, Vecteur3D acceleration);
 		// Destructeur
 		~Particule();
 		// Accesseurs
@@ -33,5 +36,12 @@ class Particule
 		void setMasse(float masse);
 		float getMasse() const;
 		void addAcceleration(Vecteur3D acceleration);
+		int getId() const;
+		void setId(int id);
+		//operator ==
+		bool operator==(const Particule& p) const;
+		void setColor(ofColor color);
+		ofColor getColor() const;
+
 };
 

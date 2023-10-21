@@ -10,7 +10,7 @@ unsigned int ParticleCable::addContact(std::vector<ParticleContact>& contact, un
 
 
     // Vérification de la violation de la longueur maximale du câble
-    if (distance < maxLength) {
+    if (distance <= maxLength) {
         return 0; // Pas de contact généré, le câble est dans les limites
     }
 
@@ -40,10 +40,28 @@ void ParticleCable::setParticleCable(Particule p1, Particule p2, float maxLength
 	this->restitution = restitution;
 }
 
+
+
 Particule ParticleCable::getParticleCable1() const {
 	return particle1;
 }
 
 Particule ParticleCable::getParticleCable2() const {
 	return particle2;
+}
+
+void ParticleCable::setParticleCable1(Particule p1) {
+	particle1 = p1;
+}
+
+void ParticleCable::setParticleCable2(Particule p2) {
+	particle2 = p2;
+}
+
+float ParticleCable::getMaxLength() const {
+	return maxLength;
+}
+
+float ParticleCable::getRestitution() const {
+	return restitution;
 }

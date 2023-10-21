@@ -1,5 +1,6 @@
 #include "Particule.h"
 
+
 Particule::Particule()
 {
 	// Constructeur par défaut
@@ -8,9 +9,10 @@ Particule::Particule()
 	acceleration = Vecteur3D();
 }
 
-Particule::Particule(Vecteur3D position, Vecteur3D velocite, Vecteur3D acceleration)
+Particule::Particule(int id, Vecteur3D position, Vecteur3D velocite, Vecteur3D acceleration)
 {
 	// Constructeur avec paramètres
+	this->id = id;
 	this->position = position;
 	this->velocite = velocite;
 	this->acceleration = acceleration;
@@ -84,4 +86,29 @@ float Particule::getMasse() const
 {
 	// Accesseur
 	return masse;
+}
+
+bool Particule::operator==(const Particule& p) const
+{
+	return (this->position == p.position && this->velocite == p.velocite && this->acceleration == p.acceleration);
+}
+
+int Particule::getId() const
+{
+	return id;
+}
+
+void Particule::setId(int id)
+{
+	this->id = id;
+}
+
+void Particule::setColor(ofColor color)
+{
+	this->color = color;
+}
+
+ofColor Particule::getColor() const
+{
+	return color;
 }

@@ -158,3 +158,9 @@ Vecteur3D Vecteur3D::sub(Vecteur3D q)
 	r.setZ(z - q.getZ());
 	return r;
 }
+
+bool Vecteur3D::operator==(const Vecteur3D& v) const
+{
+	// Comparaison de deux vecteurs
+	return (x == v.x && y == v.y && z == v.z);
+}
