@@ -12,6 +12,7 @@
 #include "../ParticleCable.h"
 #include "../ParticleForceGenerator.h"
 #include "../ParticleGravity.h"
+#include "../ParticleDrag.h"
 
 class ofApp : public ofBaseApp{
 	public:

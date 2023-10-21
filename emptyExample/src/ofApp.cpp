@@ -19,6 +19,8 @@ void ofApp::initializeParticles() {
 
 	ParticleGravity* Pgravity = new ParticleGravity();
 	registry.my_registry.push_back({&p1,Pgravity});
+	ParticleDrag* Pdrag = new ParticleDrag();
+	registry.my_registry.push_back({ &p2,Pdrag });
 	registry.updateForces(0.2);
 
 	listParticules.push_back(p1);
