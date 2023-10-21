@@ -37,13 +37,13 @@ void ofApp::initializeParticles() {
 	numberOfCables++;
 
 	Particule p5 = Particule();
-	p5.setPosition(Vecteur3D(-200., 0, 90));
-	p5.setVelocite(Vecteur3D(0, 70, 70));
+	p5.setPosition(Vecteur3D(30., 5, 30));
+	p5.setVelocite(Vecteur3D(5, 5, 0));
 	p5.setAcceleration(gravite);
 
 	Particule p6 = Particule();
-	p6.setPosition(Vecteur3D(-200., 0, 110));
-	p6.setVelocite(Vecteur3D(0, 100, -70));
+	p6.setPosition(Vecteur3D(40., 5, 40));
+	p6.setVelocite(Vecteur3D(-5, 5, 0));
 	p6.setAcceleration(gravite);
 
 
@@ -53,10 +53,12 @@ void ofApp::initializeParticles() {
 	ParticleDrag* Pdrag = new ParticleDrag();
 	registry.my_registry.push_back({ &p1,Pdrag });
 
-	ParticleSpring* Pspring5 = new ParticleSpring(&p6, 1.2, 30);
-	ParticleSpring* Pspring6 = new ParticleSpring(&p5, 1.2, 30);
+	ParticleSpring* Pspring5 = new ParticleSpring(&p6, 3, 10);
+	ParticleSpring* Pspring6 = new ParticleSpring(&p5, 3, 10);
 	registry.my_registry.push_back({ &p5, Pspring5 });
 	registry.my_registry.push_back({ &p6, Pspring6 });
+	registry.my_registry.push_back({ &p5, Pgravity });
+	registry.my_registry.push_back({ &p6, Pgravity });
 
 	registry.updateForces(0.2);
 
