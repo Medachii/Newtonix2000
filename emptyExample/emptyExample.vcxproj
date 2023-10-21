@@ -117,6 +117,7 @@
     <ClCompile Include="ParticleGravity.cpp" />
     <ClCompile Include="ParticleLink.cpp" />
     <ClCompile Include="ParticleRod.cpp" />
+    <ClCompile Include="ParticleSpring.cpp" />
     <ClCompile Include="Particule.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\ofApp.cpp" />
@@ -146,6 +147,7 @@
     <ClInclude Include="ParticleGravity.h" />
     <ClInclude Include="ParticleLink.h" />
     <ClInclude Include="ParticleRod.h" />
+    <ClInclude Include="ParticleSpring.h" />
     <ClInclude Include="Particule.h" />
     <ClInclude Include="src\ofApp.h" />
     <ClInclude Include="Vecteur3D.h" />

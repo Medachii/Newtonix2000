@@ -2,7 +2,6 @@
 
 void ofApp::initializeParticles() {
 	gravite = Vecteur3D(0, -9.8, 0);
-	ParticleForceRegistry registry;
 
 	//Collisions classiques entre deux particules
 
@@ -16,17 +15,6 @@ void ofApp::initializeParticles() {
 	p2.setPosition(Vecteur3D(100, 0, 0));
 	p2.setVelocite(Vecteur3D(-70, 70, 0));
 	p2.setAcceleration(gravite);
-
-	ParticleGravity* Pgravity = new ParticleGravity();
-	registry.my_registry.push_back({&p1,Pgravity});
-	ParticleDrag* Pdrag = new ParticleDrag();
-	registry.my_registry.push_back({ &p2,Pdrag });
-	registry.updateForces(0.2);
-
-	listParticules.push_back(p1);
-	listParticules.push_back(p2);
-	trails.push_back(p1);
-	trails.push_back(p2);
 
 	//Collisions cables
 
@@ -48,10 +36,44 @@ void ofApp::initializeParticles() {
 	cables[numberOfCables] = cable;
 	numberOfCables++;
 
+	Particule p5 = Particule();
+	p5.setPosition(Vecteur3D(-200., 0, 90));
+	p5.setVelocite(Vecteur3D(0, 70, 70));
+	p5.setAcceleration(gravite);
+
+	Particule p6 = Particule();
+	p6.setPosition(Vecteur3D(-200., 0, 110));
+	p6.setVelocite(Vecteur3D(0, 100, -70));
+	p6.setAcceleration(gravite);
+
+
+
+	ParticleGravity* Pgravity = new ParticleGravity();
+	registry.my_registry.push_back({ &p1,Pgravity });
+	ParticleDrag* Pdrag = new ParticleDrag();
+	registry.my_registry.push_back({ &p1,Pdrag });
+
+	ParticleSpring* Pspring5 = new ParticleSpring(&p6, 1.2, 30);
+	ParticleSpring* Pspring6 = new ParticleSpring(&p5, 1.2, 30);
+	registry.my_registry.push_back({ &p5, Pspring5 });
+	registry.my_registry.push_back({ &p6, Pspring6 });
+
+	registry.updateForces(0.2);
+
+	listParticules.push_back(p1);
+	listParticules.push_back(p2);
+	trails.push_back(p1);
+	trails.push_back(p2);
+
 	listParticules.push_back(p3);
 	listParticules.push_back(p4);
 	trails.push_back(p3);
 	trails.push_back(p4);
+
+	listParticules.push_back(p5);
+	listParticules.push_back(p6);
+	trails.push_back(p5);
+	trails.push_back(p6);
 
 	ground.setXYZ(0, -100, 0);
 }
@@ -130,6 +152,7 @@ void ofApp::update(){
 	//clear contacts
 	numberOfContacts = 0;
 
+	registry.updateForces(0.2);
 
 
 	i= Integrateur();

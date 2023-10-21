@@ -13,6 +13,7 @@
 #include "../ParticleForceGenerator.h"
 #include "../ParticleGravity.h"
 #include "../ParticleDrag.h"
+#include "../ParticleSpring.h"
 
 class ofApp : public ofBaseApp{
 	public:
@@ -20,6 +21,7 @@ class ofApp : public ofBaseApp{
 		//list of particles
 		const int maxCollisions = 100;
 
+		ParticleForceRegistry registry;
 		vector<Particule> listParticules;
 		vector<Particule> trails;
 		
