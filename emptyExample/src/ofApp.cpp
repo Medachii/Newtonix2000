@@ -22,9 +22,9 @@ void ofApp::initializeParticles() {
 	trails.push_back(p1);
 	trails.push_back(p2);
 
-	/*ParticleGravity* Pgravity;
-	registry.my_registry.push_back({&p1,Pgravity});*/
-
+	ParticleGravity* Pgravity = new ParticleGravity();
+	registry.my_registry.push_back({&p1,Pgravity});
+	registry.updateForces(0.2);
 	//Collisions cables
 
 	Particule p3 = Particule();
@@ -126,8 +126,6 @@ void ofApp::update(){
 
 	//clear contacts
 	numberOfContacts = 0;
-
-	
 
 
 
