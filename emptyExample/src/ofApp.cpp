@@ -2,13 +2,14 @@
 
 void ofApp::initializeParticles() {
 	gravite = Vecteur3D(0, -9.8, 0);
+	ParticleForceRegistry registry;
 
 	//Collisions classiques entre deux particules
 
 	Particule p1 = Particule();
 	p1.setPosition(Vecteur3D(0, 0, 0));
 	p1.setVelocite(Vecteur3D(70, 70, 0));
-	p1.setAcceleration(gravite);
+	p1.setAcceleration(Vecteur3D(0, 0, 0));
 
 	Particule p2 = Particule();
 	//p2 goes the other way to collide with p1
@@ -20,6 +21,9 @@ void ofApp::initializeParticles() {
 	listParticules.push_back(p2);
 	trails.push_back(p1);
 	trails.push_back(p2);
+
+	/*ParticleGravity* Pgravity;
+	registry.my_registry.push_back({&p1,Pgravity});*/
 
 	//Collisions cables
 

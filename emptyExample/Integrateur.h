@@ -2,6 +2,7 @@
 
 #include "Vecteur3D.h"
 #include "Particule.h"
+#include "ParticleForceRegistry.h"
 
 class Integrateur
 {

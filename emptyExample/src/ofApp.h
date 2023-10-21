@@ -10,6 +10,8 @@
 #include "../Ground.h"
 #include "../ParticleContactGenerator.h"
 #include "../ParticleCable.h"
+#include "../ParticleForceGenerator.h"
+#include "../ParticleGravity.h"
 
 class ofApp : public ofBaseApp{
 	public:
