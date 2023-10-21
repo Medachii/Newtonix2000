@@ -64,6 +64,9 @@
     <ClCompile Include="Particule.cpp">
       <Filter>Collisions</Filter>
     </ClCompile>
+    <ClCompile Include="ParticleForceGenerator.cpp" />
+    <ClCompile Include="ParticleForceRegistry.cpp" />
+    <ClCompile Include="ParticleGravity.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -143,6 +146,9 @@
     <ClInclude Include="Particule.h">
       <Filter>Collisions</Filter>
     </ClInclude>
+    <ClInclude Include="ParticleForceGenerator.h" />
+    <ClInclude Include="ParticleForceRegistry.h" />
+    <ClInclude Include="ParticleGravity.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="icon.rc" />

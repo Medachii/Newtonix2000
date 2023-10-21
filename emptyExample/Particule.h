@@ -32,5 +32,6 @@ class Particule
 		float getRayon();
 		void setMasse(float masse);
 		float getMasse();
+		void addAcceleration(Vecteur3D acceleration);
 };
 

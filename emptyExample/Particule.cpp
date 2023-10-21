@@ -57,6 +57,11 @@ void Particule::setAcceleration(Vecteur3D acceleration)
 	this->acceleration = acceleration;
 }
 
+void Particule::addAcceleration(Vecteur3D acceleration)
+{
+	this->acceleration = this->acceleration + acceleration;
+}
+
 void Particule::setRayon(float rayon)
 {
 	// Mutateur
