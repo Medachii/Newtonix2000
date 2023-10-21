@@ -2,7 +2,6 @@
 
 void ofApp::initializeParticles() {
 	gravite = Vecteur3D(0, -9.8, 0);
-	ParticleForceRegistry registry;
 
 	//Collisions classiques entre deux particules
 
@@ -18,6 +17,7 @@ void ofApp::initializeParticles() {
 	p2.setPosition(Vecteur3D(100, 0, 0));
 	p2.setVelocite(Vecteur3D(-70, 70, 0));
 	p2.setAcceleration(gravite);
+<<<<<<< HEAD
 	p2.setId(2);
 	p2.setColor(ofColor::blue);
 	numberOfParticles++;
@@ -29,6 +29,8 @@ void ofApp::initializeParticles() {
 	listParticules.push_back(p2);
 	trails.push_back(p1);
 	trails.push_back(p2);
+=======
+>>>>>>> ec6b60ddef4f66c9171b07d7b085829d98d0cc27
 
 	//Collisions cables
 
@@ -63,6 +65,37 @@ void ofApp::initializeParticles() {
 	cable2.setParticleCable(p3, p5, 100, 0.4);
 	cables.push_back(cable2);
 	numberOfCables++;
+
+	Particule p5 = Particule();
+	p5.setPosition(Vecteur3D(30., 5, 30));
+	p5.setVelocite(Vecteur3D(5, 5, 0));
+	p5.setAcceleration(gravite);
+
+	Particule p6 = Particule();
+	p6.setPosition(Vecteur3D(40., 5, 40));
+	p6.setVelocite(Vecteur3D(-5, 5, 0));
+	p6.setAcceleration(gravite);
+
+
+
+	ParticleGravity* Pgravity = new ParticleGravity();
+	registry.my_registry.push_back({ &p1,Pgravity });
+	ParticleDrag* Pdrag = new ParticleDrag();
+	registry.my_registry.push_back({ &p1,Pdrag });
+
+	ParticleSpring* Pspring5 = new ParticleSpring(&p6, 3, 10);
+	ParticleSpring* Pspring6 = new ParticleSpring(&p5, 3, 10);
+	registry.my_registry.push_back({ &p5, Pspring5 });
+	registry.my_registry.push_back({ &p6, Pspring6 });
+	registry.my_registry.push_back({ &p5, Pgravity });
+	registry.my_registry.push_back({ &p6, Pgravity });
+
+	registry.updateForces(0.2);
+
+	listParticules.push_back(p1);
+	listParticules.push_back(p2);
+	trails.push_back(p1);
+	trails.push_back(p2);
 
 	listParticules.push_back(p3);
 	listParticules.push_back(p4);
@@ -100,6 +133,11 @@ void ofApp::initializeParticles() {
 	trails.push_back(p7);
 
 
+
+	listParticules.push_back(p5);
+	listParticules.push_back(p6);
+	trails.push_back(p5);
+	trails.push_back(p6);
 
 	ground.setXYZ(0, -100, 0);
 }
@@ -234,6 +272,7 @@ void ofApp::update(){
 	contacts.clear();
 	tempContact.clear();
 
+	registry.updateForces(0.2);
 
 
 	i= Integrateur();

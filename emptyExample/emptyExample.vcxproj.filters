@@ -67,6 +67,11 @@
     <ClCompile Include="ParticleForceGenerator.cpp" />
     <ClCompile Include="ParticleForceRegistry.cpp" />
     <ClCompile Include="ParticleGravity.cpp" />
+<<<<<<< HEAD
+=======
+    <ClCompile Include="ParticleDrag.cpp" />
+    <ClCompile Include="ParticleSpring.cpp" />
+>>>>>>> ec6b60ddef4f66c9171b07d7b085829d98d0cc27
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -149,6 +154,11 @@
     <ClInclude Include="ParticleForceGenerator.h" />
     <ClInclude Include="ParticleForceRegistry.h" />
     <ClInclude Include="ParticleGravity.h" />
+<<<<<<< HEAD
+=======
+    <ClInclude Include="ParticleDrag.h" />
+    <ClInclude Include="ParticleSpring.h" />
+>>>>>>> ec6b60ddef4f66c9171b07d7b085829d98d0cc27
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="icon.rc" />
