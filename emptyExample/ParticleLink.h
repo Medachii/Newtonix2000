@@ -4,8 +4,11 @@
 class ParticleLink : public ParticleContactGenerator
 {
 public :
-	Particule* particle[2];
+	Particule particle1;
+	Particule particle2;
 	float currentLength() const;
-	unsigned int addContact(ParticleContact* contact, unsigned int limit) const =0;
+	unsigned int addContact(ParticleContact* contact, unsigned int limit) const;
+	void setParticles(Particule p1, Particule p2);
 };
+
 

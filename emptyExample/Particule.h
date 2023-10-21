@@ -20,18 +20,18 @@ class Particule
 		// Destructeur
 		~Particule();
 		// Accesseurs
-		Vecteur3D getPosition();
-		Vecteur3D getVelocite();
-		Vecteur3D getAcceleration();
+		Vecteur3D getPosition() const;
+		Vecteur3D getVelocite() const;
+		Vecteur3D getAcceleration() const;
 		// Mutateurs
 		void setPosition(Vecteur3D position);
 		void setVelocite(Vecteur3D velocite);
 		void setAcceleration(Vecteur3D acceleration);
 		// Autres méthodes
 		void setRayon(float rayon);
-		float getRayon();
+		float getRayon() const;
 		void setMasse(float masse);
-		float getMasse();
+		float getMasse() const;
 		void addAcceleration(Vecteur3D acceleration);
 };
 

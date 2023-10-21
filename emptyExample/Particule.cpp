@@ -21,19 +21,19 @@ Particule::~Particule()
 	// Destructeur
 }
 
-Vecteur3D Particule::getPosition()
+Vecteur3D Particule::getPosition() const
 {
 	// Accesseur
 	return position;
 }
 
-Vecteur3D Particule::getVelocite()
+Vecteur3D Particule::getVelocite() const
 {
 	// Accesseur
 	return velocite;
 }
 
-Vecteur3D Particule::getAcceleration()
+Vecteur3D Particule::getAcceleration() const
 {
 	// Accesseur
 	return acceleration;
@@ -68,7 +68,7 @@ void Particule::setRayon(float rayon)
 	this->rayon = rayon;
 }
 
-float Particule::getRayon()
+float Particule::getRayon() const
 {
 	// Accesseur
 	return rayon;
@@ -80,7 +80,7 @@ void Particule::setMasse(float masse)
 	this->masse = masse;
 }
 
-float Particule::getMasse()
+float Particule::getMasse() const
 {
 	// Accesseur
 	return masse;

@@ -3,9 +3,10 @@
 
 
 
-void ParticleContact::resolve(float duration) {
+ParticleContact ParticleContact::resolve(float duration) {
 	resolveVelocity();
 	resolveInterpenetration();
+	return *this;
 }
 
 float ParticleContact::calculateSeparatingVelocity() {

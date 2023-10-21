@@ -30,8 +30,8 @@ class ofApp : public ofBaseApp{
 		ofEasyCam cam;
 
 		Collision collisionDetector;
-		ParticleContact contacts[100];
-		ParticleCable cables[100];
+		vector<ParticleContact> contacts;
+		vector <ParticleCable> cables;
 		int numberOfContacts=0;
 		int numberOfCables = 0;
 

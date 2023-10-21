@@ -1,8 +1,13 @@
 #include "ParticleCable.h"
 
-unsigned int ParticleCable::addContact(ParticleContact* contact, unsigned int limit) const {
+
+unsigned int ParticleCable::addContact(std::vector<ParticleContact>& contact, unsigned int limit) {
     // Calcul de la longueur actuelle du câble entre les deux sphères
-    float distance = currentLength();
+    Particule p1 = getParticleCable1();
+    Particule p2 = getParticleCable2();
+    float distance = (p1.getPosition() - p2.getPosition()).norme();
+
+
 
     // Vérification de la violation de la longueur maximale du câble
     if (distance < maxLength) {
@@ -10,20 +15,35 @@ unsigned int ParticleCable::addContact(ParticleContact* contact, unsigned int li
     }
 
     ParticleContact newContact;
-    newContact.particle[0] = particle[0];
-    newContact.particle[1] = particle[1];
+    newContact.particle[0] = &particle1;
+    newContact.particle[1] = &particle2;
     newContact.restitution = restitution;
 
     // Calcul de la normale de contact (de la sphère 0 vers la sphère 1)
-    newContact.contactNormal = (particle[1]->getPosition() - particle[0]->getPosition()).normalize();
+    newContact.contactNormal = (particle2.getPosition() - particle1.getPosition()).normalize();
 
     // Calcul de la pénétration (dépassement de la longueur maximale)
     newContact.penetration = distance - maxLength;
 
     if (limit > 0) {
-        contact[0] = newContact;
+        contact.push_back(newContact);
         return 1; // Un contact généré
     }
 
     return 0;
+}
+
+void ParticleCable::setParticleCable(Particule p1, Particule p2, float maxLength, float restitution) {
+	particle1 = p1;
+    particle2 = p2;
+	this->maxLength = maxLength;
+	this->restitution = restitution;
+}
+
+Particule ParticleCable::getParticleCable1() const {
+	return particle1;
+}
+
+Particule ParticleCable::getParticleCable2() const {
+	return particle2;
 }

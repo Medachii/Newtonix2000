@@ -39,11 +39,8 @@ void ofApp::initializeParticles() {
 	p4.setAcceleration(gravite);
 
 	ParticleCable cable;
-	cable.particle[0] = &p3;
-	cable.particle[1] = &p4;
-	cable.maxLength = 30;
-	cable.restitution = 1;
-	cables[numberOfCables] = cable;
+	cable.setParticleCable(p3, p4, 30, 1);
+	cables.push_back(cable);
 	numberOfCables++;
 
 	listParticules.push_back(p3);
@@ -104,7 +101,7 @@ void ofApp::update(){
 				sphereContact.contactNormal = (listParticules[m].getPosition() - listParticules[n].getPosition())*(1 / (listParticules[m].getPosition() - listParticules[n].getPosition()).norme());
 				//add sphereContact to contacts (contacts is not a vector)
 				if (numberOfContacts < maxCollisions) {
-					contacts[numberOfContacts] = sphereContact;
+					contacts.push_back(sphereContact);
 					numberOfContacts++;
 				}
 			}
@@ -113,14 +110,30 @@ void ofApp::update(){
 
 	for (int k = 0; k < numberOfCables; k++) {
 		//addcontact
-		numberOfContacts += cables[k].addContact(&contacts[numberOfContacts], maxCollisions - numberOfContacts);
+		numberOfContacts += cables[k].addContact(contacts, maxCollisions - numberOfContacts);
 	}
 	
 
 	// Algorithme de résolution
-
+	vector<ParticleContact> tempContact;
 	for (int i = 0; i < numberOfContacts; i++) {
-		contacts[i].resolve(t);
+		//can you resolve the contact using reference of particules ?
+		ParticleContact temp = contacts[i].resolve(t);
+		tempContact.push_back(temp);
+	}
+	//update contacts and replace all particule 
+	contacts = tempContact;
+	
+	//go through all particles in contacts and replace them in listParticules
+	for (int i = 0; i < numberOfContacts; i++) {
+		for (int j = 0; j < listParticules.size(); j++) {
+			if (contacts[i].particle[0] == &listParticules[j]) {
+				listParticules[j] = *contacts[i].particle[0];
+			}
+			if (contacts[i].particle[1] == &listParticules[j]) {
+				listParticules[j] = *contacts[i].particle[1];
+			}
+		}
 	}
 
 	
