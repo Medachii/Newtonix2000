@@ -10,7 +10,7 @@ class Collision
 	~Collision();
 	bool checkCollision(Particule p1, Particule p2);
 	bool checkCollisionWithGround(Particule p, Ground g);
-	Particule resolveCollisionWithGround(Particule p, Ground g);
+
 
 
 };

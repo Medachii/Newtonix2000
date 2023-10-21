@@ -1,4 +1,6 @@
 #pragma once
+#include <iostream>
+#include <math.h>
 class Vecteur3D
 {
 	// Attributs
@@ -24,4 +26,12 @@ public:
 	// Autres méthodes
 	Vecteur3D add(Vecteur3D q);
 	Vecteur3D mul(double k);
+	Vecteur3D operator+(Vecteur3D q);
+	Vecteur3D operator-(Vecteur3D q);
+	Vecteur3D operator*(float k);
+	Vecteur3D operator/(float k);
+	double norme();
+	float length();
+	Vecteur3D normalize();
+	float ProduitScalaire(Vecteur3D q);
 };

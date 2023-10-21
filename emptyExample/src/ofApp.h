@@ -8,12 +8,13 @@
 #include "../Integrateur.h"
 #include "../Collision.h"
 #include "../Ground.h"
+#include "../ParticleContactGenerator.h"
 
 class ofApp : public ofBaseApp{
 	public:
 		
 		//list of particles
-		
+		const int maxCollisions = 100;
 
 		vector<Particule> listParticules;
 		vector<Particule> trails;
@@ -25,7 +26,9 @@ class ofApp : public ofBaseApp{
 
 		ofEasyCam cam;
 
-		Collision collision;
+		Collision collisionDetector;
+		ParticleContact* contacts[100];
+		int numberOfContacts=0;
 
 		Ground ground;
 

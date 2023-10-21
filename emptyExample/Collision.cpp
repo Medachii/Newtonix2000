@@ -24,11 +24,6 @@ bool Collision::checkCollisionWithGround(Particule p, Ground g)
 	}
 }
 
-Particule Collision::resolveCollisionWithGround(Particule p, Ground g)
-{
-	p.setVelocite(Vecteur3D(p.getVelocite().getX(), p.getVelocite().getY()*-1, p.getVelocite().getZ()));  //doit être possible sans retourner de valeur, jouer avec les pointeurs ?
-	return p;
-}
 
 bool Collision::checkCollision(Particule p1, Particule p2)
 {

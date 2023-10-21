@@ -77,3 +77,74 @@ Vecteur3D Vecteur3D::mul(double k)
 	r.setZ(k * z);
 	return r;
 }
+
+//define operator - for vector substraction
+
+Vecteur3D Vecteur3D::operator-(Vecteur3D q)
+{
+	// Substraction de deux vecteurs
+	Vecteur3D r;
+	r.setX(x - q.getX());
+	r.setY(y - q.getY());
+	r.setZ(z - q.getZ());
+	return r;
+}
+
+double Vecteur3D::norme()
+{
+	// Norme d'un vecteur
+	return sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2));
+}
+
+float Vecteur3D::length()
+{
+	// Norme d'un vecteur
+	return sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2));
+}
+
+Vecteur3D Vecteur3D::normalize()
+{
+	// Normalisation d'un vecteur
+	Vecteur3D r;
+	r.setX(x / norme());
+	r.setY(y / norme());
+	r.setZ(z / norme());
+	return r;
+}
+
+Vecteur3D Vecteur3D::operator+(Vecteur3D q)
+{
+	// Addition de deux vecteurs
+	Vecteur3D r;
+	r.setX(x + q.getX());
+	r.setY(y + q.getY());
+	r.setZ(z + q.getZ());
+	return r;
+}
+
+Vecteur3D Vecteur3D::operator*(float k)
+{
+	// Multiplication d'un vecteur par un scalaire
+	Vecteur3D r;
+	r.setX(k * x);
+	r.setY(k * y);
+	r.setZ(k * z);
+	return r;
+}
+
+Vecteur3D Vecteur3D::operator/(float k)
+{
+	// Division d'un vecteur par un scalaire
+	Vecteur3D r;
+	r.setX(x / k);
+	r.setY(y / k);
+	r.setZ(z / k);
+	return r;
+}
+
+float Vecteur3D::ProduitScalaire(Vecteur3D q)
+{
+	// Produit scalaire de deux vecteurs
+	return x * q.getX() + y * q.getY() + z * q.getZ();
+	
+}

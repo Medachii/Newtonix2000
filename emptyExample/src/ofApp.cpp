@@ -12,8 +12,16 @@ void ofApp::setup(){
 	p1.setVelocite(Vecteur3D(70,70,0));
 	p1.setAcceleration(gravite);
 
+	Particule p2 = Particule();
+	//p2 goes the other way to collide with p1
+	p2.setPosition(Vecteur3D(100, 0, 0));
+	p2.setVelocite(Vecteur3D(-70, 70, 0));
+	p2.setAcceleration(gravite);
+
 	listParticules.push_back(p1);
+	listParticules.push_back(p2);
 	trails.push_back(p1);
+	trails.push_back(p2);
 	
 	
 	ground.setXYZ(0, -100, 0);
@@ -41,11 +49,42 @@ void ofApp::update(){
 	double t = ofGetLastFrameTime();
 
 	for (int j = 0; j < listParticules.size(); j++) {
-		if (collision.checkCollisionWithGround(listParticules[j], ground)) {
-			listParticules[j] = collision.resolveCollisionWithGround(listParticules[j], ground);
+		if (collisionDetector.checkCollisionWithGround(listParticules[j], ground)) {
+			//TODO
 		}
-
 	}
+
+	// Detection des collisions
+	for (int m = 0; m < listParticules.size()-1; m++) {
+		for (int n = m + 1; n < listParticules.size(); n++) {
+			if (collisionDetector.checkCollision(listParticules[m], listParticules[n])) {
+
+				ParticleContact sphereContact;
+				sphereContact.particle[0] = &listParticules[m];
+				sphereContact.particle[1] = &listParticules[n];
+				sphereContact.restitution = 1;
+				sphereContact.penetration = listParticules[m].getRayon() + listParticules[n].getRayon() - (listParticules[m].getPosition() - listParticules[n].getPosition()).norme();
+				sphereContact.contactNormal = (listParticules[m].getPosition() - listParticules[n].getPosition())*(1 / (listParticules[m].getPosition() - listParticules[n].getPosition()).norme());
+				//add sphereContact to contacts (contacts is not a vector)
+				contacts[numberOfContacts] = &sphereContact;
+				numberOfContacts++;
+			}
+		}
+	}
+	
+
+	// Algorithme de résolution
+
+	for (int i = 0; i < numberOfContacts; i++) {
+		contacts[i]->resolve(t);
+	}
+
+	//clear contacts
+	numberOfContacts = 0;
+
+	
+
+
 
 	i= Integrateur();
 	for (int k = 0; k < listParticules.size(); k++) {

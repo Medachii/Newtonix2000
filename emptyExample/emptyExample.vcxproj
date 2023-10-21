@@ -107,6 +107,12 @@
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="Ground.cpp" />
     <ClCompile Include="Integrateur.cpp" />
+    <ClCompile Include="ParticleCable.cpp" />
+    <ClCompile Include="ParticleContact.cpp" />
+    <ClCompile Include="ParticleContactGenerator.cpp" />
+    <ClCompile Include="ParticleContactResolver.cpp" />
+    <ClCompile Include="ParticleLink.cpp" />
+    <ClCompile Include="ParticleRod.cpp" />
     <ClCompile Include="Particule.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\ofApp.cpp" />
@@ -126,6 +132,12 @@
     <ClInclude Include="Collision.h" />
     <ClInclude Include="Ground.h" />
     <ClInclude Include="Integrateur.h" />
+    <ClInclude Include="ParticleCable.h" />
+    <ClInclude Include="ParticleContact.h" />
+    <ClInclude Include="ParticleContactGenerator.h" />
+    <ClInclude Include="ParticleContactResolver.h" />
+    <ClInclude Include="ParticleLink.h" />
+    <ClInclude Include="ParticleRod.h" />
     <ClInclude Include="Particule.h" />
     <ClInclude Include="src\ofApp.h" />
     <ClInclude Include="Vecteur3D.h" />

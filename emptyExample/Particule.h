@@ -5,6 +5,7 @@ class Particule
 {
 
 	float rayon = 10;
+	float masse = 1;
 
 	// Attributs
 	Vecteur3D position;
@@ -29,5 +30,7 @@ class Particule
 		// Autres méthodes
 		void setRayon(float rayon);
 		float getRayon();
+		void setMasse(float masse);
+		float getMasse();
 };
 

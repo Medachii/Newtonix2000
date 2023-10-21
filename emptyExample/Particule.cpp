@@ -68,3 +68,15 @@ float Particule::getRayon()
 	// Accesseur
 	return rayon;
 }
+
+void Particule::setMasse(float masse)
+{
+	// Mutateur
+	this->masse = masse;
+}
+
+float Particule::getMasse()
+{
+	// Accesseur
+	return masse;
+}
