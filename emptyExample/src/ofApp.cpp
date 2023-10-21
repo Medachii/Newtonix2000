@@ -36,7 +36,7 @@ void ofApp::initializeParticles() {
 	ParticleCable cable;
 	cable.particle[0] = &p3;
 	cable.particle[1] = &p4;
-	cable.maxLength = 50;
+	cable.maxLength = 30;
 	cable.restitution = 1;
 	cables[numberOfCables] = cable;
 	numberOfCables++;
