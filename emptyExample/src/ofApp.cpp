@@ -17,14 +17,15 @@ void ofApp::initializeParticles() {
 	p2.setVelocite(Vecteur3D(-70, 70, 0));
 	p2.setAcceleration(gravite);
 
+	ParticleGravity* Pgravity = new ParticleGravity();
+	registry.my_registry.push_back({&p1,Pgravity});
+	registry.updateForces(0.2);
+
 	listParticules.push_back(p1);
 	listParticules.push_back(p2);
 	trails.push_back(p1);
 	trails.push_back(p2);
 
-	ParticleGravity* Pgravity = new ParticleGravity();
-	registry.my_registry.push_back({&p1,Pgravity});
-	registry.updateForces(0.2);
 	//Collisions cables
 
 	Particule p3 = Particule();

@@ -59,7 +59,7 @@ void Particule::setAcceleration(Vecteur3D acceleration)
 
 void Particule::addAcceleration(Vecteur3D acceleration)
 {
-	this->acceleration = this->acceleration + acceleration;
+	this->setAcceleration(this->acceleration + acceleration);
 }
 
 void Particule::setRayon(float rayon)
