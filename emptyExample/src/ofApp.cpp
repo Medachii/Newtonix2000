@@ -17,7 +17,6 @@ void ofApp::initializeParticles() {
 	p2.setPosition(Vecteur3D(100, 0, 0));
 	p2.setVelocite(Vecteur3D(-70, 70, 0));
 	p2.setAcceleration(gravite);
-<<<<<<< HEAD
 	p2.setId(2);
 	p2.setColor(ofColor::blue);
 	numberOfParticles++;
@@ -29,8 +28,7 @@ void ofApp::initializeParticles() {
 	listParticules.push_back(p2);
 	trails.push_back(p1);
 	trails.push_back(p2);
-=======
->>>>>>> ec6b60ddef4f66c9171b07d7b085829d98d0cc27
+
 
 	//Collisions cables
 
@@ -66,29 +64,33 @@ void ofApp::initializeParticles() {
 	cables.push_back(cable2);
 	numberOfCables++;
 
-	Particule p5 = Particule();
-	p5.setPosition(Vecteur3D(30., 5, 30));
-	p5.setVelocite(Vecteur3D(5, 5, 0));
-	p5.setAcceleration(gravite);
+	Particule p8 = Particule();
+	p8.setPosition(Vecteur3D(30., 5, 30));
+	p8.setVelocite(Vecteur3D(5, 5, 0));
+	p8.setAcceleration(gravite);
+	p8.setId(8);
+	p8.setColor(ofColor::yellow);
 
-	Particule p6 = Particule();
-	p6.setPosition(Vecteur3D(40., 5, 40));
-	p6.setVelocite(Vecteur3D(-5, 5, 0));
-	p6.setAcceleration(gravite);
+	Particule p9 = Particule();
+	p9.setPosition(Vecteur3D(40., 5, 40));
+	p9.setVelocite(Vecteur3D(-5, 5, 0));
+	p9.setAcceleration(gravite);
+	p9.setId(9);
+	p9.setColor(ofColor::yellow);
 
 
 
-	ParticleGravity* Pgravity = new ParticleGravity();
+
 	registry.my_registry.push_back({ &p1,Pgravity });
 	ParticleDrag* Pdrag = new ParticleDrag();
 	registry.my_registry.push_back({ &p1,Pdrag });
 
-	ParticleSpring* Pspring5 = new ParticleSpring(&p6, 3, 10);
-	ParticleSpring* Pspring6 = new ParticleSpring(&p5, 3, 10);
-	registry.my_registry.push_back({ &p5, Pspring5 });
-	registry.my_registry.push_back({ &p6, Pspring6 });
-	registry.my_registry.push_back({ &p5, Pgravity });
-	registry.my_registry.push_back({ &p6, Pgravity });
+	ParticleSpring* Pspring8 = new ParticleSpring(&p9, 3, 10);
+	ParticleSpring* Pspring9 = new ParticleSpring(&p8, 3, 10);
+	registry.my_registry.push_back({ &p8, Pspring8 });
+	registry.my_registry.push_back({ &p9, Pspring9 });
+	registry.my_registry.push_back({ &p8, Pgravity });
+	registry.my_registry.push_back({ &p9, Pgravity });
 
 	registry.updateForces(0.2);
 
