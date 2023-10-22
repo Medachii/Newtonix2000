@@ -34,34 +34,34 @@ unsigned int ParticleCable::addContact(std::vector<ParticleContact>& contact, un
 }
 
 void ParticleCable::setParticleCable(Particule p1, Particule p2, float maxLength, float restitution) {
-	particle1 = p1;
+    particle1 = p1;
     particle2 = p2;
-	this->maxLength = maxLength;
-	this->restitution = restitution;
+    this->maxLength = maxLength;
+    this->restitution = restitution;
 }
 
 
 
 Particule ParticleCable::getParticleCable1() const {
-	return particle1;
+    return particle1;
 }
 
 Particule ParticleCable::getParticleCable2() const {
-	return particle2;
+    return particle2;
 }
 
 void ParticleCable::setParticleCable1(Particule p1) {
-	particle1 = p1;
+    particle1 = p1;
 }
 
 void ParticleCable::setParticleCable2(Particule p2) {
-	particle2 = p2;
+    particle2 = p2;
 }
 
 float ParticleCable::getMaxLength() const {
-	return maxLength;
+    return maxLength;
 }
 
 float ParticleCable::getRestitution() const {
-	return restitution;
+    return restitution;
 }

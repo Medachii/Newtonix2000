@@ -49,5 +49,5 @@ unsigned int ParticleRod::addContact(std::vector<ParticleContact>& contact, unsi
 	}
 
 	return 0;
-	
+
 }

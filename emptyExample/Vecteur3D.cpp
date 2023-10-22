@@ -146,7 +146,7 @@ float Vecteur3D::ProduitScalaire(Vecteur3D q)
 {
 	// Produit scalaire de deux vecteurs
 	return x * q.getX() + y * q.getY() + z * q.getZ();
-	
+
 }
 
 Vecteur3D Vecteur3D::sub(Vecteur3D q)

@@ -6,11 +6,11 @@
 
 class Integrateur
 {
-	public:
-		Integrateur();
-		~Integrateur();
-		void integrer(Particule* p,double time);
+public:
+	Integrateur();
+	~Integrateur();
+	void integrer(Particule* p, double time);
 
-		double t;
+	double t;
 };
 

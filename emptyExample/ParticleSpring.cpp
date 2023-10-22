@@ -10,5 +10,5 @@ void ParticleSpring::updateForce(Particule* p, float dt)
 {
 	Vecteur3D d = (p->getPosition() - other->getPosition());
 	Vecteur3D dir = d / d.norme();
-	p->addAcceleration(dir.mul((- k / p->getMasse())*(d.norme() - lzero)));
+	p->addAcceleration(dir.mul((-k / p->getMasse()) * (d.norme() - lzero)));
 }

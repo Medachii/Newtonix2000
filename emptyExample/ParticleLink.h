@@ -3,7 +3,7 @@
 #include "Particule.h"
 class ParticleLink : public ParticleContactGenerator
 {
-public :
+public:
 	Particule particle1;
 	Particule particle2;
 	float currentLength() const;

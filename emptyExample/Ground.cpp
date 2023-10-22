@@ -77,13 +77,13 @@ float Ground::getD()
 	return depth;
 }
 
-Particule Ground::resolveCollision(Particule p,float duration)
+Particule Ground::resolveCollision(Particule p, float duration)
 {
 	//put the particle on the ground if it is below the ground and invert its velocity
-	if (p.getPosition().getY() - p.getRayon() <= y + height/2)
+	if (p.getPosition().getY() - p.getRayon() <= y + height / 2)
 	{
-		p.setPosition(Vecteur3D(p.getPosition().getX(), y + height/2 + p.getRayon(), p.getPosition().getZ()));
-		p.setVelocite(Vecteur3D(p.getVelocite().getX(), -p.getVelocite().getY()*restitution, p.getVelocite().getZ()));
+		p.setPosition(Vecteur3D(p.getPosition().getX(), y + height / 2 + p.getRayon(), p.getPosition().getZ()));
+		p.setVelocite(Vecteur3D(p.getVelocite().getX(), -p.getVelocite().getY() * restitution, p.getVelocite().getZ()));
 	}
 	return p;
 }

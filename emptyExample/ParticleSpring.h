@@ -3,11 +3,11 @@
 
 class ParticleSpring : public ParticleForceGenerator
 {
-private :
+private:
 	Particule* other;
 	float k;
 	float lzero;
-public :
+public:
 	ParticleSpring(Particule* p, float k, float lzero);
 	void updateForce(Particule* p, float dt);
 };

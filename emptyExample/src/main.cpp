@@ -3,7 +3,7 @@
 
 
 //========================================================================
-int main( ){
+int main() {
 
 	//Use ofGLFWWindowSettings for more options like multi-monitor fullscreen
 	ofGLWindowSettings settings;

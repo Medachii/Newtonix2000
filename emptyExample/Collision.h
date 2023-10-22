@@ -3,9 +3,9 @@
 #include "../Ground.h"
 class Collision
 {
-	
 
-	public:
+
+public:
 	Collision();
 	~Collision();
 	bool checkCollision(Particule p1, Particule p2);

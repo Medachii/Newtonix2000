@@ -5,7 +5,7 @@
 Integrateur::Integrateur()
 {
 	// Constructeur par défaut
-	
+
 }
 
 Integrateur::~Integrateur()
