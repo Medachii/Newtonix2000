@@ -1,4 +1,4 @@
-#pragma once
+//#pragma once
 #include "ofMain.h"
 //#include "ofxGui/src/ofxGui.h"
 //#include "ofParameter.h"
@@ -18,6 +18,7 @@
 #include "../ParticleDrag.h"
 #include "../ParticleSpring.h"
 #include "../ParticleAnchorSpring.h"
+#include "../ParticleForceRegistry.h"
 
 
 class ofApp : public ofBaseApp {
@@ -29,7 +30,7 @@ public:
 	ParticleForceRegistry registry;
 	vector<Particule> listParticules;
 	vector<Particule> trails;
-
+	vector < std::pair<Particule, ParticleForceGenerator*>> registry2;
 
 	Vecteur3D gravite;
 	double t;

@@ -1,8 +1,11 @@
 #include "ofApp.h"
 
+
+
 void ofApp::initializeParticles() {
 	gravite = Vecteur3D(0, -9.8, 0);
-
+	ParticleGravity* Pgravity = new ParticleGravity();
+	ParticleDrag* Pdrag = new ParticleDrag();
 	//Collisions classiques entre deux particules
 
 	Particule p1 = Particule();
@@ -12,19 +15,15 @@ void ofApp::initializeParticles() {
 	p1.setId(1);
 	p1.setColor(ofColor::blue);
 	numberOfParticles++;
+
 	Particule p2 = Particule();
 	//p2 goes the other way to collide with p1
-	p2.setPosition(Vecteur3D(100, 0, 0));
-	p2.setVelocite(Vecteur3D(-70, 70, 0));
-	p2.setAcceleration(gravite);
+	p2.setPosition(Vecteur3D(0, 0, 50));
+	p2.setVelocite(Vecteur3D(70, 70, 0));
+	p2.setAcceleration(Vecteur3D(0, 0, 0));
 	p2.setId(2);
 	p2.setColor(ofColor::blue);
 	numberOfParticles++;
-	ParticleGravity* Pgravity = new ParticleGravity();
-	registry.my_registry.push_back({ &p1,Pgravity });
-	ParticleDrag* Pdrag = new ParticleDrag();
-	registry.my_registry.push_back({ &p1,Pdrag });
-
 
 	//Collisions cables
 	Particule p3 = Particule(3, Vecteur3D(-200., 0, 0), Vecteur3D(90, 150, 0), Vecteur3D(0, 0, 0));
@@ -33,40 +32,18 @@ void ofApp::initializeParticles() {
 	Particule p4 = Particule(4, Vecteur3D(-60., 0, 0), Vecteur3D(-60, 70, 100), Vecteur3D(0, 0, 0));
 	p4.setColor(ofColor::green);
 	numberOfParticles++;
-	registry.my_registry.push_back({ &p3,Pgravity });
-	registry.my_registry.push_back({ &p4,Pgravity });
-
-
-	ParticleCable cable;
-	cable.setParticleCable(p3, p4, 200, 0.4);
-	cables.push_back(cable);
-	numberOfCables++;
 
 	Particule p5 = Particule(5,Vecteur3D(-100, 0, 0),Vecteur3D(90, 30, 0), Vecteur3D(0, 0, 0));
 	p5.setColor(ofColor::green);
 	numberOfParticles++;
-	registry.my_registry.push_back({ &p5,Pgravity });
 
-	ParticleCable cable2;
-	cable2.setParticleCable(p3, p5, 100, 0.4);
-	cables.push_back(cable2);
-	numberOfCables++;
-
-	//Collisions tiges
 	Particule p6 = Particule(6, Vecteur3D(-300, 20, 0), Vecteur3D(30, 100, 0), Vecteur3D(0, 0, 0));
 	p6.setColor(ofColor::red);
 	numberOfParticles++;
-	registry.my_registry.push_back({ &p6,Pgravity });
-
+	
 	Particule p7 = Particule(7,Vecteur3D(-400, 0, 0),Vecteur3D(100, 200, 20), Vecteur3D(0, 0, 0));
 	p7.setColor(ofColor::red);
 	numberOfParticles++;
-	registry.my_registry.push_back({ &p7,Pgravity });
-
-	ParticleRod rod;
-	rod.setParticleRod(p6, p7, 100);
-	rods.push_back(rod);
-	numberOfRods++;
 
 	Particule p8 = Particule(8,Vecteur3D(30., 5, 30),Vecteur3D(5, 5, 0),Vecteur3D(0,0,0));
 	p8.setColor(ofColor::yellow);
@@ -76,26 +53,69 @@ void ofApp::initializeParticles() {
 	p9.setColor(ofColor::yellow);
 	numberOfParticles++;
 
-	ParticleSpring* Pspring8 = new ParticleSpring(&p9, 3, 10);
-	ParticleSpring* Pspring9 = new ParticleSpring(&p8, 3, 10);
-	registry.my_registry.push_back({ &p8, Pspring8 });
-	registry.my_registry.push_back({ &p9, Pspring9 });
-	registry.my_registry.push_back({ &p8, Pgravity });
-	registry.my_registry.push_back({ &p9, Pgravity });
-
 	Particule p10 = Particule(10, Vecteur3D(-20, 20, 60), Vecteur3D(0, -20, 0),Vecteur3D(0,0,0));
 	p10.setColor(ofColor::purple);
 	numberOfParticles++;
-	registry.my_registry.push_back({ &p10,Pgravity });	
 	
 	Particule p11 = Particule(11, Vecteur3D(-210, 0, -210), Vecteur3D(0, 0, 0), Vecteur3D(0, 0, 0));
 	p11.setColor(ofColor::hotPink);
 	numberOfParticles++;
+
+
+	ParticleCable cable;
+	cable.setParticleCable(p3, p4, 200, 0.4);
+	cables.push_back(cable);
+	numberOfCables++;
+
+	ParticleCable cable2;
+	cable2.setParticleCable(p3, p5, 100, 0.4);
+	cables.push_back(cable2);
+	numberOfCables++;
+
+	ParticleRod rod;
+	rod.setParticleRod(p6, p7, 100);
+	rods.push_back(rod);
+	numberOfRods++;
+
+	ParticleSpring* Pspring8 = new ParticleSpring(&p9, 3, 10);
+	ParticleSpring* Pspring9 = new ParticleSpring(&p8, 3, 10);
+
+	ParticleAnchorSpring* Pas8 = new ParticleAnchorSpring(Vecteur3D(-200, 0, -200), 3, 30);
+
+	registry.my_registry.push_back({ &p1,Pgravity });
+	registry.my_registry.push_back({ &p1,Pdrag });
+	registry.my_registry.push_back({ &p2,Pgravity });
+	registry.my_registry.push_back({ &p3,Pgravity });
+	registry.my_registry.push_back({ &p4,Pgravity });
+	registry.my_registry.push_back({ &p5,Pgravity });
+	registry.my_registry.push_back({ &p6,Pgravity });
+	registry.my_registry.push_back({ &p7,Pgravity });
+	registry.my_registry.push_back({ &p8, Pspring8 });
+	registry.my_registry.push_back({ &p9, Pspring9 });
+	registry.my_registry.push_back({ &p8, Pgravity });
+	registry.my_registry.push_back({ &p9, Pgravity });
+	registry.my_registry.push_back({ &p10,Pgravity });
 	registry.my_registry.push_back({ &p11,Pgravity });
-	ParticleAnchorSpring* Pas8 = new ParticleAnchorSpring(Vecteur3D(-200,0,-200),3,30);
 	registry.my_registry.push_back({ &p11,Pas8 });
 
-	registry.updateForces(0.2);
+
+	registry2.push_back(std::make_pair(p1, Pgravity));
+	registry2.push_back(std::make_pair(p1, Pdrag));
+	registry2.push_back(std::make_pair(p2, Pgravity));
+	registry2.push_back(std::make_pair(p3, Pgravity));
+	registry2.push_back(std::make_pair(p4, Pgravity));
+	registry2.push_back(std::make_pair(p5, Pgravity));
+	registry2.push_back(std::make_pair(p6, Pgravity));
+	registry2.push_back(std::make_pair(p7, Pgravity));
+	registry2.push_back(std::make_pair(p8, Pspring8));
+	registry2.push_back(std::make_pair(p9, Pspring9));
+	registry2.push_back(std::make_pair(p8, Pgravity));
+	registry2.push_back(std::make_pair(p9, Pgravity));
+	registry2.push_back(std::make_pair(p10, Pgravity));
+	registry2.push_back(std::make_pair(p11, Pgravity));
+	registry2.push_back(std::make_pair(p11, Pas8));
+
+	//registry.updateForces(0.2);
 
 	listParticules.push_back(p1);
 	listParticules.push_back(p2);
@@ -126,6 +146,8 @@ void ofApp::initializeParticles() {
 	ground.setXYZ(0, -100, 0);
 }
 
+
+
 //--------------------------------------------------------------
 void ofApp::setup() {
 
@@ -133,7 +155,7 @@ void ofApp::setup() {
 	ofBackground(230, 230, 250);
 	//restartButton.addListener(this, &ofApp::restartButtonPressed);
 	//addParticleButton.addListener(this, &ofApp::addParticleButtonPressed);
-
+	
 
 	initializeParticles();
 
@@ -155,7 +177,30 @@ void ofApp::setup() {
 
 //--------------------------------------------------------------
 void ofApp::update() {
+
 	t = ofGetLastFrameTime();
+
+	//registry.updateForces(0.2);
+	for (int i = 0; i < registry2.size(); i++) {
+		if (registry2[i].first.getId() == 8 || (registry2[i].first.getId() == 9)) {
+			cout << registry2[i].first.getAcceleration().getX() << endl;
+		}
+		registry2[i].first.setAcceleration(Vecteur3D(0, 0, 0));
+		registry2[i].second->updateForce(&registry2[i].first, t);
+	}
+	for (int i = 0; i < listParticules.size(); i++) {
+		listParticules[i].setAcceleration(Vecteur3D(0, 0, 0));
+	}
+	for (int i = 0; i < listParticules.size(); i++) {
+		for (int j = 0; j < registry2.size(); j++) {
+			if (listParticules[i].getId() == registry2[j].first.getId()) {
+				listParticules[i].setAcceleration(listParticules[i].getAcceleration() + registry2[j].first.getAcceleration());
+			}
+		}
+	}
+
+
+
 	for (int j = 0; j < listParticules.size(); j++) {
 		if (collisionDetector.checkCollisionWithGround(listParticules[j], ground)) {
 			Particule test = ground.resolveCollision(listParticules[j], t);
@@ -257,14 +302,14 @@ void ofApp::update() {
 	contacts.clear();
 	tempContact.clear();
 
-	registry.updateForces(0.2);
-
 
 	i = Integrateur();
 	for (int k = 0; k < listParticules.size(); k++) {
 		i.integrer(&listParticules[k], t);
 		trails.push_back(listParticules[k]);
 	}
+
+
 
 
 }
