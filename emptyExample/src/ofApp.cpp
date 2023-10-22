@@ -24,10 +24,6 @@ void ofApp::initializeParticles() {
 	registry.my_registry.push_back({&p1,Pgravity});
 	registry.updateForces(0.2);
 
-	listParticules.push_back(p1);
-	listParticules.push_back(p2);
-	trails.push_back(p1);
-	trails.push_back(p2);
 
 
 	//Collisions cables
@@ -64,19 +60,7 @@ void ofApp::initializeParticles() {
 	cables.push_back(cable2);
 	numberOfCables++;
 
-	Particule p8 = Particule();
-	p8.setPosition(Vecteur3D(30., 5, 30));
-	p8.setVelocite(Vecteur3D(5, 5, 0));
-	p8.setAcceleration(gravite);
-	p8.setId(8);
-	p8.setColor(ofColor::yellow);
-
-	Particule p9 = Particule();
-	p9.setPosition(Vecteur3D(40., 5, 40));
-	p9.setVelocite(Vecteur3D(-5, 5, 0));
-	p9.setAcceleration(gravite);
-	p9.setId(9);
-	p9.setColor(ofColor::yellow);
+	
 
 
 
@@ -85,26 +69,10 @@ void ofApp::initializeParticles() {
 	ParticleDrag* Pdrag = new ParticleDrag();
 	registry.my_registry.push_back({ &p1,Pdrag });
 
-	ParticleSpring* Pspring8 = new ParticleSpring(&p9, 3, 10);
-	ParticleSpring* Pspring9 = new ParticleSpring(&p8, 3, 10);
-	registry.my_registry.push_back({ &p8, Pspring8 });
-	registry.my_registry.push_back({ &p9, Pspring9 });
-	registry.my_registry.push_back({ &p8, Pgravity });
-	registry.my_registry.push_back({ &p9, Pgravity });
+	
+	
 
-	registry.updateForces(0.2);
 
-	listParticules.push_back(p1);
-	listParticules.push_back(p2);
-	trails.push_back(p1);
-	trails.push_back(p2);
-
-	listParticules.push_back(p3);
-	listParticules.push_back(p4);
-	listParticules.push_back(p5);
-	trails.push_back(p3);
-	trails.push_back(p4);
-	trails.push_back(p5);
 
 
 	//Collisions tiges
@@ -129,17 +97,58 @@ void ofApp::initializeParticles() {
 	rods.push_back(rod);
 	numberOfRods++;
 
-	listParticules.push_back(p6);
-	listParticules.push_back(p7);
-	trails.push_back(p6);
-	trails.push_back(p7);
+	Particule p8 = Particule();
+	p8.setPosition(Vecteur3D(30., 5, 30));
+	p8.setVelocite(Vecteur3D(5, 5, 0));
+	p8.setId(8);
+	p8.setColor(ofColor::yellow);
 
+	Particule p9 = Particule();
+	p9.setPosition(Vecteur3D(40., 5, 40));
+	p9.setVelocite(Vecteur3D(-5, 5, 0));
+	p9.setId(9);
+	p9.setColor(ofColor::yellow);
 
+	/*ParticleSpring* Pspring8 = new ParticleSpring(&p9, 3, 10);
+	ParticleSpring* Pspring9 = new ParticleSpring(&p8, 3, 10);
+	registry.my_registry.push_back({ &p8, Pspring8 });
+	registry.my_registry.push_back({ &p9, Pspring9 });
+	registry.my_registry.push_back({ &p8, Pgravity });
+	registry.my_registry.push_back({ &p9, Pgravity });*/
 
+	Particule p10 = Particule();
+	p10.setPosition(Vecteur3D(-20, 20, 60));
+	p10.setVelocite(Vecteur3D(0, -20, 0));
+	registry.my_registry.push_back({ &p10,Pgravity });
+	p10.setId(10);
+	p10.setColor(ofColor::purple);
+
+	
+	registry.updateForces(0.2);
+
+	listParticules.push_back(p1);
+	listParticules.push_back(p2);
+	listParticules.push_back(p3);
+	listParticules.push_back(p4);
 	listParticules.push_back(p5);
 	listParticules.push_back(p6);
+	listParticules.push_back(p7);
+	listParticules.push_back(p8);
+	listParticules.push_back(p9);
+	listParticules.push_back(p10);
+
+
+	trails.push_back(p1);
+	trails.push_back(p2);
+	trails.push_back(p3);
+	trails.push_back(p4);
 	trails.push_back(p5);
 	trails.push_back(p6);
+	trails.push_back(p7);
+	trails.push_back(p8);
+	trails.push_back(p9);
+	trails.push_back(p10);
+
 
 	ground.setXYZ(0, -100, 0);
 }
@@ -173,10 +182,11 @@ void ofApp::setup(){
 
 //--------------------------------------------------------------
 void ofApp::update(){
-	double t = ofGetLastFrameTime();
+	t = ofGetLastFrameTime();
 	for (int j = 0; j < listParticules.size(); j++) {
 		if (collisionDetector.checkCollisionWithGround(listParticules[j], ground)) {
-			//TODO
+			Particule test=ground.resolveCollision(listParticules[j],t);
+			listParticules[j] = test;
 		}
 	}
 
@@ -283,13 +293,6 @@ void ofApp::update(){
 		trails.push_back(listParticules[k]);
 	}
 
-	
-
-	
-
-	
-
-	
 
 }
 
@@ -327,6 +330,7 @@ void ofApp::addParticleButtonPressed() {
 void ofApp::draw(){
 	//Draw a point at the position of particule p
 	cam.begin();
+	
 	ofSetColor(0, 0, 0);
 	ofDrawBox(ground.getX(), ground.getY(), ground.getZ(), ground.width, ground.height, ground.depth);
 	ofSetColor(255,255,255);
@@ -338,12 +342,6 @@ void ofApp::draw(){
 	ofDrawArrow(glm::vec3(0, 0, 0), glm::vec3(0, 0, 300), 10);
 	/*ofSetColor(150,0,160);
 	ofDrawSphere(p1.getPosition().getX(), p1.getPosition().getY(), p1.getPosition().getZ(), 10);*/
-	for (int k = 0; k < listParticules.size(); k++) {
-		ofSetColor(listParticules[k].getColor());
-		ofDrawSphere(listParticules[k].getPosition().getX(), listParticules[k].getPosition().getY(), listParticules[k].getPosition().getZ(), listParticules[k].getRayon());
-	}
-
-	
 
 
 	//Draw trails of particles
@@ -355,6 +353,21 @@ void ofApp::draw(){
 		ofDrawSphere(trails[i].getPosition().getX(), trails[i].getPosition().getY(), trails[i].getPosition().getZ(), 1);
 	}
 
+	for (int k = 0; k < listParticules.size(); k++) {
+		ofSetColor(listParticules[k].getColor());
+		ofDrawSphere(listParticules[k].getPosition().getX(), listParticules[k].getPosition().getY(), listParticules[k].getPosition().getZ(), listParticules[k].getRayon());
+	}
+
+	//Draw a line between the two particles
+	ofSetColor(0,255,0);
+	for (int i = 0; i < numberOfCables; i++) {
+		ofDrawLine(cables[i].getParticleCable1().getPosition().getX(), cables[i].getParticleCable1().getPosition().getY(), cables[i].getParticleCable1().getPosition().getZ(), cables[i].getParticleCable2().getPosition().getX(), cables[i].getParticleCable2().getPosition().getY(), cables[i].getParticleCable2().getPosition().getZ());
+	}
+	ofSetColor(255,0,0);
+	for (int i = 0; i < numberOfRods; i++) {
+		ofDrawLine(rods[i].getParticleRod1().getPosition().getX(), rods[i].getParticleRod1().getPosition().getY(), rods[i].getParticleRod1().getPosition().getZ(), rods[i].getParticleRod2().getPosition().getX(), rods[i].getParticleRod2().getPosition().getY(), rods[i].getParticleRod2().getPosition().getZ());
+	}
+	
 
 	cam.end();
 	

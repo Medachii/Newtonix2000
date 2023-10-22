@@ -13,8 +13,8 @@ Collision::~Collision()
 
 bool Collision::checkCollisionWithGround(Particule p, Ground g)
 {
-	// Check if the particle is in the ground
-	if (p.getPosition().getY()+p.getRayon() <= g.getY()+g.getH()/2)
+	//check if the particle is on the ground, it should came from above the ground, particle has a radius of p.getRayon() and ground has a height g.getH()
+	if (p.getPosition().getY() - p.getRayon() <= g.getY() + g.height/2)
 	{
 		return true;
 	}

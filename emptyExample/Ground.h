@@ -1,4 +1,5 @@
 #pragma once
+#include "Particule.h"
 class Ground
 {
 	int x;
@@ -11,6 +12,7 @@ class Ground
 		int width = 500;
 		int height = 50;
 		int depth = 500;
+		float restitution = 0.5f;
 	Ground();
 	~Ground();
 	void setX(int x);
@@ -24,6 +26,7 @@ class Ground
 	float getH();
 	float getD();
 
+	Particule resolveCollision(Particule p,float duration);
 
 };
 
