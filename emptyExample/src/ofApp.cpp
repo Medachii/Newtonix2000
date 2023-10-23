@@ -182,7 +182,7 @@ void ofApp::update() {
 
 	//registry.updateForces(0.2);
 	for (int i = 0; i < registry2.size(); i++) {
-		if (registry2[i].first.getId() == 8 || (registry2[i].first.getId() == 9)) {
+		if (registry2[i].first.getId() == 1){
 			cout << registry2[i].first.getAcceleration().getX() << endl;
 		}
 		registry2[i].first.setAcceleration(Vecteur3D(0, 0, 0));
@@ -307,6 +307,33 @@ void ofApp::update() {
 	for (int k = 0; k < listParticules.size(); k++) {
 		i.integrer(&listParticules[k], t);
 		trails.push_back(listParticules[k]);
+	}
+
+	//replace all velocity of particles in cables and rods and registry2
+	for (int i = 0; i < listParticules.size(); i++) {
+		for (int j = 0; j < cables.size(); j++) {
+			if (listParticules[i].getId() == cables[j].getParticleCable1().getId()) {
+				cables[j].setParticleCable1(listParticules[i]);
+			}
+			if (listParticules[i].getId() == cables[j].getParticleCable2().getId()) {
+				cables[j].setParticleCable2(listParticules[i]);
+			}
+		}
+
+		for (int k = 0; k < rods.size(); k++) {
+			if (listParticules[i].getId() == rods[k].getParticleRod1().getId()) {
+				rods[k].setParticleRod1(listParticules[i]);
+			}
+			if (listParticules[i].getId() == rods[k].getParticleRod2().getId()) {
+				rods[k].setParticleRod2(listParticules[i]);
+			}
+		}
+
+		for (int l = 0; l < registry2.size(); l++) {
+			if (listParticules[i].getId() == registry2[l].first.getId()) {
+				registry2[l].first = listParticules[i];
+			}
+		}
 	}
 
 
