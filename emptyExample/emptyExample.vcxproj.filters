@@ -52,7 +52,7 @@
       <Filter>forces</Filter>
     </ClCompile>
     <ClCompile Include="Collision.cpp">
-      <Filter>collision</Filter>
+      <Filter>forces</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

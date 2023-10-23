@@ -44,24 +44,36 @@ Vecteur3D Particule::getAcceleration() const
 void Particule::setPosition(Vecteur3D position)
 {
 	// Mutateur
+	
 	this->position = position;
+
+	
 }
 
 void Particule::setVelocite(Vecteur3D velocite)
 {
 	// Mutateur
+	
 	this->velocite = velocite;
+	
+
 }
 
 void Particule::setAcceleration(Vecteur3D acceleration)
 {
 	// Mutateur
+	
 	this->acceleration = acceleration;
+	
+
 }
 
 void Particule::addAcceleration(Vecteur3D acceleration)
 {
+
 	this->setAcceleration(this->acceleration + acceleration);
+	
+	
 }
 
 void Particule::setRayon(float rayon)
@@ -112,3 +124,5 @@ ofColor Particule::getColor() const
 {
 	return color;
 }
+
+

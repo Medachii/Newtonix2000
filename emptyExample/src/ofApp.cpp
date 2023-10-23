@@ -45,11 +45,11 @@ void ofApp::initializeParticles() {
 	p7.setColor(ofColor::red);
 	numberOfParticles++;
 
-	Particule p8 = Particule(8,Vecteur3D(30., 5, 30),Vecteur3D(5, 5, 0),Vecteur3D(0,0,0));
+	Particule p8 = Particule(8,Vecteur3D(10., 5, 30),Vecteur3D(5, 5, 0),Vecteur3D(0,0,0));
 	p8.setColor(ofColor::yellow);
 	numberOfParticles++;
 
-	Particule p9 = Particule(9, Vecteur3D(40., 5, 40), Vecteur3D(-5, 5, 0),Vecteur3D(0,0,0));
+	Particule p9 = Particule(9, Vecteur3D(40., 5, 70), Vecteur3D(-5, 5, 0),Vecteur3D(0,0,0));
 	p9.setColor(ofColor::yellow);
 	numberOfParticles++;
 
@@ -72,15 +72,31 @@ void ofApp::initializeParticles() {
 	cables.push_back(cable2);
 	numberOfCables++;
 
+	ParticleCable cable3;
+	cable3.setParticleCable(p4, p8, 300, 0.5);
+	cables.push_back(cable3);
+	numberOfCables++;
+
 	ParticleRod rod;
 	rod.setParticleRod(p6, p7, 100);
 	rods.push_back(rod);
 	numberOfRods++;
 
-	ParticleSpring* Pspring8 = new ParticleSpring(&p9, 3, 10);
-	ParticleSpring* Pspring9 = new ParticleSpring(&p8, 3, 10);
 
-	ParticleAnchorSpring* Pas8 = new ParticleAnchorSpring(Vecteur3D(-200, 0, -200), 3, 30);
+
+	ParticleSpring* Pspring8 = new ParticleSpring(&p9, 1, 10);
+	//ParticleSpring* Pspring9 = new ParticleSpring(&p8, 1, 10);
+	springs.push_back(*Pspring8);
+
+	ParticleSpring* Pspring4 = new ParticleSpring(&p6, 1, 100);
+	springs.push_back(*Pspring4);
+	ParticleSpring* Pspring6 = new ParticleSpring(&p4, 1, 100);
+	springs.push_back(*Pspring6);
+
+
+
+	ParticleAnchorSpring* anchor = new ParticleAnchorSpring(Vecteur3D(-200, 0, -200), 3, 30);
+	anchorsLink.push_back(std::make_pair(p11, Vecteur3D(-200, 0, -200)));
 
 	registry.my_registry.push_back({ &p1,Pgravity });
 	registry.my_registry.push_back({ &p1,Pdrag });
@@ -91,12 +107,12 @@ void ofApp::initializeParticles() {
 	registry.my_registry.push_back({ &p6,Pgravity });
 	registry.my_registry.push_back({ &p7,Pgravity });
 	registry.my_registry.push_back({ &p8, Pspring8 });
-	registry.my_registry.push_back({ &p9, Pspring9 });
+	//registry.my_registry.push_back({ &p9, Pspring9 });
 	registry.my_registry.push_back({ &p8, Pgravity });
 	registry.my_registry.push_back({ &p9, Pgravity });
 	registry.my_registry.push_back({ &p10,Pgravity });
 	registry.my_registry.push_back({ &p11,Pgravity });
-	registry.my_registry.push_back({ &p11,Pas8 });
+	registry.my_registry.push_back({ &p11,anchor });
 
 
 	registry2.push_back(std::make_pair(p1, Pgravity));
@@ -104,18 +120,24 @@ void ofApp::initializeParticles() {
 	registry2.push_back(std::make_pair(p2, Pgravity));
 	registry2.push_back(std::make_pair(p3, Pgravity));
 	registry2.push_back(std::make_pair(p4, Pgravity));
+
 	registry2.push_back(std::make_pair(p5, Pgravity));
 	registry2.push_back(std::make_pair(p6, Pgravity));
+
 	registry2.push_back(std::make_pair(p7, Pgravity));
-	registry2.push_back(std::make_pair(p8, Pspring8));
-	registry2.push_back(std::make_pair(p9, Pspring9));
 	registry2.push_back(std::make_pair(p8, Pgravity));
 	registry2.push_back(std::make_pair(p9, Pgravity));
+	registry2.push_back(std::make_pair(p8, Pdrag));
+	registry2.push_back(std::make_pair(p9, Pdrag));
+	registry2.push_back(std::make_pair(p8, Pspring8));
+	//registry2.push_back(std::make_pair(p9, Pspring9));
+
 	registry2.push_back(std::make_pair(p10, Pgravity));
 	registry2.push_back(std::make_pair(p11, Pgravity));
-	registry2.push_back(std::make_pair(p11, Pas8));
+	registry2.push_back(std::make_pair(p11, anchor));
 
 	//registry.updateForces(0.2);
+
 
 	listParticules.push_back(p1);
 	listParticules.push_back(p2);
@@ -129,7 +151,7 @@ void ofApp::initializeParticles() {
 	listParticules.push_back(p10);
 	listParticules.push_back(p11);
 
-
+	
 	trails.push_back(p1);
 	trails.push_back(p2);
 	trails.push_back(p3);
@@ -177,14 +199,19 @@ void ofApp::setup() {
 
 //--------------------------------------------------------------
 void ofApp::update() {
-
+	if (paused) {
+		return;
+	}
 	t = ofGetLastFrameTime();
+
+
+
 
 	//registry.updateForces(0.2);
 	for (int i = 0; i < registry2.size(); i++) {
-		if (registry2[i].first.getId() == 1){
+		/*if (registry2[i].first.getId() == 1){
 			cout << registry2[i].first.getAcceleration().getX() << endl;
-		}
+		}*/
 		registry2[i].first.setAcceleration(Vecteur3D(0, 0, 0));
 		registry2[i].second->updateForce(&registry2[i].first, t);
 	}
@@ -199,7 +226,7 @@ void ofApp::update() {
 		}
 	}
 
-
+	//Collisions avec le sol
 
 	for (int j = 0; j < listParticules.size(); j++) {
 		if (collisionDetector.checkCollisionWithGround(listParticules[j], ground)) {
@@ -216,7 +243,7 @@ void ofApp::update() {
 				ParticleContact sphereContact;
 				sphereContact.particle[0] = &listParticules[m];
 				sphereContact.particle[1] = &listParticules[n];
-				sphereContact.restitution = 1;
+				sphereContact.restitution = 0.8;
 				sphereContact.penetration = listParticules[m].getRayon() + listParticules[n].getRayon() - (listParticules[m].getPosition() - listParticules[n].getPosition()).norme();
 				sphereContact.contactNormal = (listParticules[m].getPosition() - listParticules[n].getPosition()) * (1 / (listParticules[m].getPosition() - listParticules[n].getPosition()).norme());
 				//add sphereContact to contacts (contacts is not a vector)
@@ -334,6 +361,19 @@ void ofApp::update() {
 				registry2[l].first = listParticules[i];
 			}
 		}
+		//for springs
+		for (int m = 0; m < springs.size(); m++) {
+			if (listParticules[i].getId() == springs[m].getOther().getId()) {
+				springs[m].setOther(&listParticules[i]);
+			}
+		}
+
+		for (int n = 0; n < anchorsLink.size(); n++) {
+			if (listParticules[i].getId() == anchorsLink[n].first.getId()) {
+				anchorsLink[n].first = listParticules[i];
+			}
+		}
+
 	}
 
 
@@ -342,35 +382,127 @@ void ofApp::update() {
 }
 
 void ofApp::restartButtonPressed() {
-	/*p1.setPosition(Vecteur3D(0, 0, 0));
-	p1.setVelocite(Vecteur3D(70, 70, 70));
-	p1.setAcceleration(gravite);*/
+
 
 	listParticules.clear();
 	trails.clear();
 	numberOfContacts = 0;
+	contacts.clear();
+	registry.my_registry.clear();
+	registry2.clear();
+	cables.clear();
+	rods.clear();
+	springs.clear();
+	anchorsLink.clear();
+	numberOfParticles = 0;
+	numberOfCables = 0;
+	numberOfRods = 0;
+	numberOfSprings = 0;
+
 	initializeParticles();
-	//trails of particles
+
+
+
 
 
 }
 
 void ofApp::addParticleButtonPressed() {
-	Particule p2 = Particule();
+	Particule pr = Particule();
 
-	double randomX = ofRandom(-100, 100);
-	double randomY = ofRandom(-100, 100);
-	double randomZ = ofRandom(-100, 100);
+	double randomX = ofRandom(-70, 100);
+	double randomY = ofRandom(-70, 100);
+	double randomZ = ofRandom(-70, 100);
 	double randomVX = ofRandom(-100, 100);
 	double randomVY = ofRandom(-100, 100);
 	double randomVZ = ofRandom(-100, 100);
-	p2.setPosition(Vecteur3D(randomX, randomY, randomZ));
-	p2.setVelocite(Vecteur3D(randomVX, randomVY, randomVZ));
+	pr.setPosition(Vecteur3D(randomX, randomY, randomZ));
+	pr.setVelocite(Vecteur3D(randomVX, randomVY, randomVZ));
+	pr.setId(numberOfParticles);
+	numberOfParticles++;
 
-	p2.setAcceleration(gravite);
-	listParticules.push_back(p2);
-	trails.push_back(p2);
+
+	registry2.push_back(std::make_pair(pr, new ParticleGravity()));
+	listParticules.push_back(pr);
+	trails.push_back(pr);
 }
+
+void ofApp::addCableButtonPressed() {
+	Particule pone = Particule();
+	Particule ptwo = Particule();
+	double randomX = ofRandom(-70, 100);
+	double randomX2 = ofRandom(-70, 100);
+	double randomY = ofRandom(-70, 100);
+	double randomY2 = ofRandom(-70, 100);
+	double randomZ = ofRandom(-70, 100);
+	double randomZ2 = ofRandom(-70, 100);
+	double randomVX = ofRandom(-100, 100);
+	double randomVX2 = ofRandom(-100, 100);
+	double randomVY = ofRandom(-100, 100);
+	double randomVY2 = ofRandom(-100, 100);
+	double randomVZ = ofRandom(-100, 100);
+	double randomVZ2 = ofRandom(-100, 100);
+	pone.setPosition(Vecteur3D(randomX, randomY, randomZ));
+	pone.setVelocite(Vecteur3D(randomVX, randomVY, randomVZ));
+	pone.setId(numberOfParticles);
+	numberOfParticles++;
+	ptwo.setPosition(Vecteur3D(randomX2, randomY2, randomZ2));
+	ptwo.setVelocite(Vecteur3D(randomVX2, randomVY2, randomVZ2));
+	ptwo.setId(numberOfParticles);
+	numberOfParticles++;
+	ParticleCable cable;
+	double randomCable = ofRandom(50, 300);
+	cable.setParticleCable(pone, ptwo, randomCable, 0.4);
+	cables.push_back(cable);
+	numberOfCables++;
+	registry2.push_back(std::make_pair(pone, new ParticleGravity()));
+	registry2.push_back(std::make_pair(ptwo, new ParticleGravity()));
+	listParticules.push_back(pone);
+	listParticules.push_back(ptwo);
+	trails.push_back(pone);
+	trails.push_back(ptwo);
+
+}
+
+
+void ofApp::addRodButtonPressed() {
+	//create two particles with random position and velocity that will be linked by a rod
+	Particule pone = Particule();
+	Particule ptwo = Particule();
+	double randomX = ofRandom(-70, 100);
+	double randomX2 = ofRandom(-70, 100);
+	double randomY = ofRandom(-70, 100);
+	double randomY2 = ofRandom(-70, 100);
+	double randomZ = ofRandom(-70, 100);
+	double randomZ2 = ofRandom(-70, 100);
+	double randomVX = ofRandom(-100, 100);
+	double randomVX2 = ofRandom(-100, 100);
+	double randomVY = ofRandom(-100, 100);
+	double randomVY2 = ofRandom(-100, 100);
+	double randomVZ = ofRandom(-100, 100);
+	double randomVZ2 = ofRandom(-100, 100);
+	pone.setPosition(Vecteur3D(randomX, randomY, randomZ));
+	pone.setVelocite(Vecteur3D(randomVX, randomVY, randomVZ));
+	pone.setId(numberOfParticles);
+	numberOfParticles++;
+	ptwo.setPosition(Vecteur3D(randomX2, randomY2, randomZ2));
+	ptwo.setVelocite(Vecteur3D(randomVX2, randomVY2, randomVZ2));
+	ptwo.setId(numberOfParticles);
+	numberOfParticles++;
+	ParticleRod rod;
+	rod.setParticleRod(pone, ptwo, 100);
+	rods.push_back(rod);
+	numberOfRods++;
+	registry2.push_back(std::make_pair(pone, new ParticleGravity()));
+	registry2.push_back(std::make_pair(ptwo, new ParticleGravity()));
+	listParticules.push_back(pone);
+	listParticules.push_back(ptwo);
+	trails.push_back(pone);
+	trails.push_back(ptwo);
+
+}
+
+
 //--------------------------------------------------------------
 void ofApp::draw() {
 	//Draw a point at the position of particule p
@@ -385,6 +517,8 @@ void ofApp::draw() {
 	ofDrawArrow(glm::vec3(0, 0, 0), glm::vec3(0, 300, 0), 10);
 	ofSetColor(0, 0, 255);
 	ofDrawArrow(glm::vec3(0, 0, 0), glm::vec3(0, 0, 300), 10);
+	ofSetColor(0, 255, 255);
+	ofDrawArrow(glm::vec3(0, -125, 0), glm::vec3(0, -75, 0), 10);
 	/*ofSetColor(150,0,160);
 	ofDrawSphere(p1.getPosition().getX(), p1.getPosition().getY(), p1.getPosition().getZ(), 10);*/
 
@@ -412,6 +546,11 @@ void ofApp::draw() {
 	for (int i = 0; i < numberOfRods; i++) {
 		ofDrawLine(rods[i].getParticleRod1().getPosition().getX(), rods[i].getParticleRod1().getPosition().getY(), rods[i].getParticleRod1().getPosition().getZ(), rods[i].getParticleRod2().getPosition().getX(), rods[i].getParticleRod2().getPosition().getY(), rods[i].getParticleRod2().getPosition().getZ());
 	}
+	ofSetColor(0, 0, 255);
+	for (int i = 0; i < anchorsLink.size(); i++) {
+		ofDrawLine(anchorsLink[i].first.getPosition().getX(), anchorsLink[i].first.getPosition().getY(), anchorsLink[i].first.getPosition().getZ(), anchorsLink[i].second.getX(), anchorsLink[i].second.getY(), anchorsLink[i].second.getZ());
+	}
+
 
 
 	cam.end();
@@ -421,7 +560,52 @@ void ofApp::draw() {
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key) {
+	
+	//quand on appuie sur espace, mets un pause la boucle
+	if (key == ' ') {
+		paused = !paused;
+	}
 
+
+	if (key == OF_KEY_UP) {
+		for (int i = 0; i < listParticules.size(); i++) {
+			listParticules[i].setVelocite(listParticules[i].getVelocite() + Vecteur3D(0, 50, 0));
+		}
+	}
+
+	if (key == OF_KEY_DOWN) {
+		for (int i = 0; i < listParticules.size(); i++) {
+			listParticules[i].setVelocite(listParticules[i].getVelocite() + Vecteur3D(0, -50, 0));
+		}
+	}
+
+	if (key == OF_KEY_LEFT) {
+		for (int i = 0; i < listParticules.size(); i++) {
+			listParticules[i].setVelocite(listParticules[i].getVelocite() + Vecteur3D(-50, 0, 0));
+		}
+	}
+
+	if (key == OF_KEY_RIGHT) {
+		for (int i = 0; i < listParticules.size(); i++) {
+			listParticules[i].setVelocite(listParticules[i].getVelocite() + Vecteur3D(50, 0, 0));
+		}
+	}
+
+	if (key == 'r') {
+		restartButtonPressed();
+	}
+
+	if (key == 'a') {
+		addParticleButtonPressed();
+	}
+
+	if (key == 'c') {
+		addCableButtonPressed();
+	}
+
+	if (key == 'e') {
+		addRodButtonPressed();
+	}
 }
 
 //--------------------------------------------------------------

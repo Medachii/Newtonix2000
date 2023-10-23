@@ -10,5 +10,7 @@ private:
 public:
 	ParticleSpring(Particule* p, float k, float lzero);
 	void updateForce(Particule* p, float dt);
+	Particule getOther();
+	void setOther(Particule* p);
 };
 

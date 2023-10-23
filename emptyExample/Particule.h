@@ -10,6 +10,7 @@ class Particule
 	float masse = 1;
 	ofColor color = ofColor::white;
 
+
 	// Attributs
 	Vecteur3D position;
 	Vecteur3D velocite;
@@ -42,6 +43,7 @@ public:
 	bool operator==(const Particule& p) const;
 	void setColor(ofColor color);
 	ofColor getColor() const;
+
 
 };
 

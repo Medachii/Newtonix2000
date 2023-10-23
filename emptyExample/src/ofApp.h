@@ -24,6 +24,9 @@
 class ofApp : public ofBaseApp {
 public:
 
+
+	bool paused = false ;
+
 	//list of particles
 	const int maxCollisions = 100;
 
@@ -42,9 +45,12 @@ public:
 	vector<ParticleContact> contacts;
 	vector <ParticleCable> cables;
 	vector<ParticleRod>	rods;
+	vector<ParticleSpring> springs;
 	int numberOfContacts = 0;
 	int numberOfCables = 0;
 	int numberOfRods = 0;
+	int numberOfSprings = 0;
+	vector<std::pair<Particule, Vecteur3D>> anchorsLink;
 
 	int numberOfParticles = 0;
 
@@ -73,6 +79,9 @@ public:
 	void gotMessage(ofMessage msg);
 	void restartButtonPressed();
 	void addParticleButtonPressed();
+	void addCableButtonPressed();
+	void addRodButtonPressed();
+
 
 
 

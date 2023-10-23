@@ -9,9 +9,9 @@ class Ground
 
 
 public:
-	int width = 500;
+	int width = 5000;
 	int height = 50;
-	int depth = 500;
+	int depth = 5000;
 	float restitution = 0.5f;
 	Ground();
 	~Ground();
