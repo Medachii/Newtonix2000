@@ -30,10 +30,10 @@ public:
 	//list of particles
 	const int maxCollisions = 100;
 
-	ParticleForceRegistry registry;
-	vector<Particule> listParticules;
+	ParticleForceRegistry* registry = new ParticleForceRegistry;
+	vector<Particule*> listParticules;
+	int* numberOfParticles= new int(0);
 	vector<Particule> trails;
-	vector < std::pair<Particule, ParticleForceGenerator*>> registry2;
 
 	Vecteur3D gravite;
 	double t;
@@ -42,7 +42,8 @@ public:
 	ofEasyCam cam;
 
 	Collision collisionDetector;
-	vector<ParticleContact> contacts;
+	ParticleContact* contacts = new ParticleContact();
+	/*vector<ParticleContact> contacts;*/
 	vector <ParticleCable> cables;
 	vector<ParticleRod>	rods;
 	vector<ParticleSpring> springs;
@@ -52,7 +53,7 @@ public:
 	int numberOfSprings = 0;
 	vector<std::pair<Particule, Vecteur3D>> anchorsLink;
 
-	int numberOfParticles = 0;
+	
 
 	Ground ground;
 

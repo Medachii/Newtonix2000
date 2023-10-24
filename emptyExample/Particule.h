@@ -20,7 +20,7 @@ class Particule
 public:
 	// Constructeurs
 	Particule();
-	Particule(int id, Vecteur3D position, Vecteur3D velocite, Vecteur3D acceleration);
+	Particule(int* nbParticles,Vecteur3D position, Vecteur3D velocite, Vecteur3D acceleration, float rayon = 10, float masse = 1, ofColor color = (0,0,0));
 	// Destructeur
 	~Particule();
 	// Accesseurs
@@ -43,6 +43,7 @@ public:
 	bool operator==(const Particule& p) const;
 	void setColor(ofColor color);
 	ofColor getColor() const;
+
 
 
 };

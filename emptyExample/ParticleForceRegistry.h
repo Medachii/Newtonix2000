@@ -13,7 +13,7 @@ public:
 		ParticleForceGenerator* fg;
 	};
 
-	typedef std::vector<ParticleForceRegistration> Registry;
+	using Registry = std::vector<ParticleForceRegistration>;
 	Registry my_registry;
 
 public:

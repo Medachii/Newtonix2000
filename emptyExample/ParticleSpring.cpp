@@ -13,12 +13,12 @@ void ParticleSpring::updateForce(Particule* p, float dt)
 	p->addAcceleration(dir.mul((-k / p->getMasse()) * (d.norme() - lzero)));
 }
 
-Particule ParticleSpring::getOther()
-{
-	return *other;
-}
-
-void ParticleSpring::setOther(Particule* p)
-{
-	other = p;
-}
+//Particule ParticleSpring::getOther()
+//{
+//	return *other;
+//}
+//
+//void ParticleSpring::setOther(Particule* p)
+//{
+//	other = p;
+//}

@@ -9,13 +9,18 @@ Particule::Particule()
 	acceleration = Vecteur3D();
 }
 
-Particule::Particule(int id, Vecteur3D position, Vecteur3D velocite, Vecteur3D acceleration)
+Particule::Particule(int* nbParticles, Vecteur3D position, Vecteur3D velocite, Vecteur3D acceleration, float rayon, float masse, ofColor color)
 {
 	// Constructeur avec paramètres
-	this->id = id;
+	this->id = *nbParticles;
+	(*nbParticles)++;
 	this->position = position;
 	this->velocite = velocite;
 	this->acceleration = acceleration;
+	this->rayon = rayon;
+	this->masse = masse;
+	this->color = color;
+
 }
 
 Particule::~Particule()
@@ -124,5 +129,6 @@ ofColor Particule::getColor() const
 {
 	return color;
 }
+
 
 
