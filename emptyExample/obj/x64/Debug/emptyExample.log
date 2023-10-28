@@ -1,4 +1,11 @@
-﻿  ofApp.cpp
+﻿  ParticleCable.cpp
+C:\Users\noe76\Downloads\of_v0.12.0_vs_release\of_v0.12.0_vs_release\libs\openFrameworks\types\ofColor.h(708,6): warning C4244: '=' : conversion de 'float' en 'PixelType', perte possible de données
+          with
+          [
+              PixelType=unsigned char
+          ]
+C:\Users\noe76\Downloads\of_v0.12.0_vs_release\of_v0.12.0_vs_release\apps\myApps\emptyExample\Particule.h(23,11): warning C4244: 'argument' : conversion de 'int' en 'float', perte possible de données
+  ofApp.cpp
 C:\Users\noe76\Downloads\of_v0.12.0_vs_release\of_v0.12.0_vs_release\libs\openFrameworks\math\ofMatrix4x4.h(326,20): warning C4267: 'argument' : conversion de 'size_t' en 'int', perte possible de données
 C:\Users\noe76\Downloads\of_v0.12.0_vs_release\of_v0.12.0_vs_release\libs\openFrameworks\math\ofMatrix4x4.h(331,20): warning C4267: 'argument' : conversion de 'size_t' en 'int', perte possible de données
 C:\Users\noe76\Downloads\of_v0.12.0_vs_release\of_v0.12.0_vs_release\libs\openFrameworks\math\ofMatrix4x4.h(912,11): warning C4267: 'argument' : conversion de 'size_t' en 'int', perte possible de données

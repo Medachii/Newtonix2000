@@ -2,9 +2,9 @@
 #include "ParticleContact.h"
 class ParticleContactResolver
 {
-protected:
-	unsigned int iteration;
+
 public:
+	unsigned int iteration;
 	void resolveContacts(ParticleContact* contactArray, unsigned int numContacts, float duration);
 };
 

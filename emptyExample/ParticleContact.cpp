@@ -3,14 +3,21 @@
 
 
 
-ParticleContact ParticleContact::resolve(float duration) {
+void ParticleContact::resolve(float duration) {
 	resolveVelocity();
 	resolveInterpenetration();
-	return *this;
 }
 
 float ParticleContact::calculateSeparatingVelocity() {
-	return 0;
+	//vitesse de séparation = (v1-v2) * n
+	//verify the existence of the particles
+	if (particle[0] == NULL) {
+		return 0;
+	}
+	if (particle[1] == NULL) {
+		return 0;
+	}
+	return (particle[0]->getVelocite() - particle[1]->getVelocite()).ProduitScalaire(contactNormal);
 }
 
 void ParticleContact::resolveVelocity() {

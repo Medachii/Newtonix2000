@@ -14,9 +14,13 @@ void ofApp::initializeParticles() {
 	Particule* p2 = new Particule(numberOfParticles,Vecteur3D(0, 0, 50), Vecteur3D(70, 70, 0), Vecteur3D(0, 0, 0), 10, 1, ofColor::blue);
 	Particule* p3 = new Particule(numberOfParticles,Vecteur3D(0, 0, 100), Vecteur3D(70, 30, 0), Vecteur3D(0, 0, 0), 10, 1, ofColor::yellow); //spring avec p4
 	Particule* p4 = new Particule(numberOfParticles,Vecteur3D(0, 0, 150), Vecteur3D(-70, -20, 0), Vecteur3D(0, 0, 0), 10, 1, ofColor::yellow); //spring avec p3
-	Particule* p5 = new Particule(numberOfParticles,Vecteur3D(-50, 0, 0), Vecteur3D(30, 70, 0), Vecteur3D(0, 0, 0), 10, 1, ofColor::blue);
+	Particule* p5 = new Particule(numberOfParticles,Vecteur3D(-50, 0, 0), Vecteur3D(30, 70, 0), Vecteur3D(0, 0, 0), 10, 1, ofColor::blue); //anchor en 0 0 0
 
+	Particule* p6 = new Particule(numberOfParticles,Vecteur3D(-30, 0, -100), Vecteur3D(-70, 40, 0), Vecteur3D(0, 0, 0), 10, 1, ofColor::red);
+	Particule* p7 = new Particule(numberOfParticles,Vecteur3D(30, 0, -100), Vecteur3D(60, 80, 0), Vecteur3D(0, 0, 0), 10, 1, ofColor::red);
 
+	Particule* p8 = new Particule(numberOfParticles,Vecteur3D(-30, 0, -150), Vecteur3D(-70, 80, 0), Vecteur3D(0, 0, 0), 10, 1, ofColor::purple);
+	Particule* p9 = new Particule(numberOfParticles,Vecteur3D(30, 0, -150), Vecteur3D(60, 80, 0), Vecteur3D(0, 0, 0), 10, 1, ofColor::purple);
 	
 
 	//Particule p6 = Particule(6, Vecteur3D(-300, 20, 0), Vecteur3D(30, 100, 20), Vecteur3D(0, 0, 0));
@@ -44,10 +48,23 @@ void ofApp::initializeParticles() {
 	//numberOfParticles++;
 
 
-	//ParticleCable cable;
-	//cable.setParticleCable(p3, p4, 200, 0.4);
-	//cables.push_back(cable);
-	//numberOfCables++;
+	ParticleCable* cable = new ParticleCable();
+
+	cable->particle[0] = p6;
+	cable->particle[1] = p7;
+	cable->maxLength = 200;
+	cable->restitution = 0.5;
+	cables[numberOfCables] = cable;
+	numberOfCables++;
+
+	ParticleRod* rod = new ParticleRod();
+	rod->particle[0] = p8;
+	rod->particle[1] = p9;
+	rod->length = 60;
+	rods[numberOfRods]=rod;
+	numberOfRods++;
+
+
 
 	//ParticleCable cable2;
 	//cable2.setParticleCable(p3, p5, 100, 0.4);
@@ -98,8 +115,8 @@ void ofApp::initializeParticles() {
 	registry->my_registry.push_back({ p5,Pgravity });
 	registry->my_registry.push_back({ p5,Pdrag });
 	registry->my_registry.push_back({ p5,anchor });
-	//registry->my_registry.push_back({ &p6,Pgravity });
-	//registry->my_registry.push_back({ &p7,Pgravity });
+	registry->my_registry.push_back({ p6,Pgravity });
+	registry->my_registry.push_back({ p7,Pgravity });
 	//registry->my_registry.push_back({ &p8, Pspring8 });
 	////registry.my_registry.push_back({ &p9, Pspring9 });
 	//registry->my_registry.push_back({ &p8, Pgravity });
@@ -137,8 +154,8 @@ void ofApp::initializeParticles() {
 	listParticules.push_back(p3);
 	listParticules.push_back(p4);
 	listParticules.push_back(p5);
-	//listParticules.push_back(p6);
-	//listParticules.push_back(p7);
+	listParticules.push_back(p6);
+	listParticules.push_back(p7);
 	//listParticules.push_back(p8);
 	//listParticules.push_back(p9);
 	//listParticules.push_back(p10);
@@ -150,8 +167,8 @@ void ofApp::initializeParticles() {
 	trails.push_back(*p3);
 	trails.push_back(*p4);
 	trails.push_back(*p5);
-	//trails.push_back(p6);
-	//trails.push_back(p7);
+	trails.push_back(*p6);
+	trails.push_back(*p7);
 	//trails.push_back(p8);
 	//trails.push_back(p9);
 	//trails.push_back(p10)
@@ -205,38 +222,49 @@ void ofApp::update() {
 
 
 
-	//for (int m = 0; m < listParticules.size() - 1; m++) {
-	//	for (int n = m + 1; n < listParticules.size(); n++) {
-	//		if (collisionDetector.checkCollision(listParticules[m], listParticules[n])) {
+	for (int m = 0; m < listParticules.size() - 1; m++) {
+		for (int n = m + 1; n < listParticules.size(); n++) {
+			if (collisionDetector.checkCollision(listParticules[m], listParticules[n])) {
 
-	//			ParticleContact sphereContact;
-	//			sphereContact.particle[0] = listParticules[m];
-	//			sphereContact.particle[1] = listParticules[n];
-	//			sphereContact.restitution = 0.8;
-	//			sphereContact.penetration = listParticules[m]->getRayon() + listParticules[n]->getRayon() - (listParticules[m]->getPosition() - listParticules[n]->getPosition()).norme();
-	//			sphereContact.contactNormal = (listParticules[m]->getPosition() - listParticules[n]->getPosition()) * (1 / (listParticules[m]->getPosition() - listParticules[n]->getPosition()).norme());
-	//			//add sphereContact to contacts (contacts is not a vector)
-	//			if (numberOfContacts < maxCollisions) {
-	//				contacts[numberOfContacts] = sphereContact;
-	//				numberOfContacts++;
-	//			}
-	//		}
-	//	}
+				ParticleContact sphereContact;
+				sphereContact.particle[0] = listParticules[m];
+				sphereContact.particle[1] = listParticules[n];
+				sphereContact.restitution = 0.8;
+				sphereContact.penetration = listParticules[m]->getRayon() + listParticules[n]->getRayon() - (listParticules[m]->getPosition() - listParticules[n]->getPosition()).norme();
+				sphereContact.contactNormal = (listParticules[m]->getPosition() - listParticules[n]->getPosition()) * (1 / (listParticules[m]->getPosition() - listParticules[n]->getPosition()).norme());
+				//add sphereContact to contacts (contacts is not a vector)
+				if (numberOfContacts < maxCollisions) {
+					contacts[numberOfContacts] = sphereContact;
+					numberOfContacts++;
+				}
+			}
+		}
+	}
+
+	for (int k = 0; k < numberOfCables; k++) {
+		//addcontact
+		numberOfContacts += cables[k]->addContact(contacts, numberOfContacts);
+	}
+	//for (int l = 0; l < numberOfRods; l++) {
+	//	//addcontact
+	//	numberOfContacts += rods[l]->addContact(contacts, maxCollisions - numberOfContacts);
 	//}
+	if (numberOfContacts > 0) {
+		cout << "Number of contacts : " << numberOfContacts << endl;
+	}
+
+	resolver->resolveContacts(contacts, numberOfContacts, t);
+	numberOfContacts = 0;
+
+	
 
 	//Collision cables
 
-	//for (int k = 0; k < numberOfCables; k++) {
-	//	//addcontact
-	//	numberOfContacts += cables[k].addContact(contacts, maxCollisions - numberOfContacts);
-	//}
+
 
 	////Collision rods
 
-	//for (int l = 0; l < numberOfRods; l++) {
-	//	//addcontact
-	//	numberOfContacts += rods[l].addContact(contacts, maxCollisions - numberOfContacts);
-	//}
+	
 
 	//// Algorithme de résolution
 	//vector<ParticleContact> tempContact;
@@ -509,11 +537,12 @@ void ofApp::draw() {
 	}
 
 	//Draw a line between the two particles
-	/*ofSetColor(0, 255, 0);
+	ofSetColor(0, 255, 0);
 	for (int i = 0; i < numberOfCables; i++) {
-		ofDrawLine(cables[i].getParticleCable1().getPosition().getX(), cables[i].getParticleCable1().getPosition().getY(), cables[i].getParticleCable1().getPosition().getZ(), cables[i].getParticleCable2().getPosition().getX(), cables[i].getParticleCable2().getPosition().getY(), cables[i].getParticleCable2().getPosition().getZ());
+		ParticleCable* cable = cables[i];
+		ofDrawLine(cable->particle[0]->getPosition().getX(), cable->particle[0]->getPosition().getY(), cable->particle[0]->getPosition().getZ(), cable->particle[1]->getPosition().getX(), cable->particle[1]->getPosition().getY(), cable->particle[1]->getPosition().getZ());
 	}
-	ofSetColor(255, 0, 0);
+	/*ofSetColor(255, 0, 0);
 	for (int i = 0; i < numberOfRods; i++) {
 		ofDrawLine(rods[i].getParticleRod1().getPosition().getX(), rods[i].getParticleRod1().getPosition().getY(), rods[i].getParticleRod1().getPosition().getZ(), rods[i].getParticleRod2().getPosition().getX(), rods[i].getParticleRod2().getPosition().getY(), rods[i].getParticleRod2().getPosition().getZ());
 	}

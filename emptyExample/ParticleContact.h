@@ -9,7 +9,7 @@ public:
 	float penetration;
 	Vecteur3D contactNormal;
 
-	ParticleContact resolve(float duration);
+	void resolve(float duration);
 	float calculateSeparatingVelocity();
 private:
 	void resolveVelocity();

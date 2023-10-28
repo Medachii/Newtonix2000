@@ -1,53 +1,39 @@
 #include "ParticleRod.h"
 #include <vector>
-void ParticleRod::setParticleRod(Particule p1, Particule p2, float length) {
-	particle1 = p1;
-	particle2 = p2;
-	this->length = length;
-}
 
-Particule ParticleRod::getParticleRod1() const {
-	return particle1;
-}
+unsigned int ParticleRod::addContact(ParticleContact* contact, unsigned int limit) {
+	
+	// Find the length of the cable
+	float currentLen = currentLength();
 
-Particule ParticleRod::getParticleRod2() const {
-	return particle2;
-}
+	// Check if we're over-extended
+	if (currentLen == length) return 0;
 
-void ParticleRod::setParticleRod1(Particule p1) {
-	particle1 = p1;
-}
 
-void ParticleRod::setParticleRod2(Particule p2) {
-	particle2 = p2;
-}
+	ParticleContact* newContact = new ParticleContact();
 
-float ParticleRod::getLength() const {
-	return length;
-}
+	// Otherwise return the contact
+	newContact->particle[0] = particle[0];
+	newContact->particle[1] = particle[1];
 
-unsigned int ParticleRod::addContact(std::vector<ParticleContact>& contact, unsigned int limit) {
-	float currentLength = (particle1.getPosition() - particle2.getPosition()).norme();
-	if (currentLength == length) {
-		return 0;
-	}
-	ParticleContact newContact;
-	newContact.particle[0] = &particle1;
-	newContact.particle[1] = &particle2;
-	newContact.restitution = 0;
-	newContact.contactNormal = (particle2.getPosition() - particle1.getPosition()).normalize();
+	// Calculate the normal
+	Vecteur3D normal = (particle[1]->getPosition() - particle[0]->getPosition()).normalize();
 
-	if (currentLength > length) {
-		newContact.penetration = currentLength - length;
+	// The contact normal depends on whether we're extending or compressing
+	if (currentLen > length) {
+		newContact->contactNormal = normal;
+		newContact->penetration = currentLen - length;
 	}
 	else {
-		newContact.penetration = length - currentLength;
-	}
-	if (limit > 0) {
-		contact.push_back(newContact);
-		return 1;
+		newContact->contactNormal = normal * -1;
+		newContact->penetration = length - currentLen;
 	}
 
-	return 0;
+	// Always use zero restitution (no bounciness)
+	newContact->restitution = 0;
 
+	contact = newContact;
+
+	return 1;
+   
 }

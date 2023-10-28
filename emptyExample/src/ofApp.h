@@ -19,6 +19,7 @@
 #include "../ParticleSpring.h"
 #include "../ParticleAnchorSpring.h"
 #include "../ParticleForceRegistry.h"
+#include "../ParticleContactResolver.h"
 
 
 class ofApp : public ofBaseApp {
@@ -34,6 +35,7 @@ public:
 	vector<Particule*> listParticules;
 	int* numberOfParticles= new int(0);
 	vector<Particule> trails;
+	ParticleContactResolver* resolver = new ParticleContactResolver();
 
 	Vecteur3D gravite;
 	double t;
@@ -43,12 +45,15 @@ public:
 
 	Collision collisionDetector;
 	ParticleContact* contacts = new ParticleContact();
+	ParticleCable** cables = new ParticleCable*;
+	ParticleRod** rods = new ParticleRod*;
+	int numberOfCables = 0;
 	/*vector<ParticleContact> contacts;*/
-	vector <ParticleCable> cables;
-	vector<ParticleRod>	rods;
+
+
 	vector<ParticleSpring> springs;
 	int numberOfContacts = 0;
-	int numberOfCables = 0;
+
 	int numberOfRods = 0;
 	int numberOfSprings = 0;
 	vector<std::pair<Particule, Vecteur3D>> anchorsLink;
