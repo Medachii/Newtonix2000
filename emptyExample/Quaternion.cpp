@@ -39,14 +39,34 @@ Quaternion Quaternion::operator*(const Quaternion& other) const
 	return result;
 }	
 
-void Quaternion::RotateByVector(const Vecteur3D& vector)
+Quaternion Quaternion::operator*(double other)
 {
-	
+	Quaternion result;
+	result.values[0] = values[0]*other;
+	result.values[1] = values[1]*other;
+	result.values[2] = values[2]*other;
+	result.values[3] = values[3]*other;
+	return result;
 }
 
-void Quaternion::UpdateByAngularVelocity(const Vecteur3D& angularVelocity, float duration)
+Quaternion Quaternion::operator+(const Quaternion& other) const
 {
-	
+	Quaternion result;
+	result.values[0] = values[0] + other.values[0];
+	result.values[1] = values[1] + other.values[1];
+	result.values[2] = values[2] + other.values[2];
+	result.values[3] = values[3] + other.values[3];
+	return result;
+}
+
+//void Quaternion::RotateByVector(const Vecteur3D& vector)
+//{
+//}
+
+void Quaternion::UpdateByAngularVelocity(const Vecteur3D& angularVelocity, double duration)
+{
+	Quaternion result;
+	result = (*this) + (Quaternion(0, angularVelocity.getX(), angularVelocity.getY(), angularVelocity.getZ()) * (*this) * (duration/2));
 }
 
 const double Quaternion::getW() const

@@ -3,9 +3,26 @@
 #include "Quaternion.h"
 #include "Matrix33.h"
 
-//Matrix34 Matrix34::operator*(const Matrix34& other) const
-//{
-//}
+Matrix34 Matrix34::operator*(const Matrix34& other) const
+{
+	Matrix34 result;
+	result.values[0] = values[0] * other.values[0] + values[1] * other.values[4] + values[2] * other.values[8];
+	result.values[1] = values[0] * other.values[1] + values[1] * other.values[5] + values[2] * other.values[9];
+	result.values[2] = values[0] * other.values[2] + values[1] * other.values[6] + values[2] * other.values[10];
+	result.values[3] = values[0] * other.values[3] + values[1] * other.values[7] + values[2] * other.values[11] + values[3];
+
+	result.values[4] = values[4] * other.values[0] + values[5] * other.values[4] + values[6] * other.values[8];
+	result.values[5] = values[4] * other.values[1] + values[5] * other.values[5] + values[6] * other.values[9];
+	result.values[6] = values[4] * other.values[2] + values[5] * other.values[6] + values[6] * other.values[10];
+	result.values[7] = values[4] * other.values[3] + values[5] * other.values[7] + values[6] * other.values[11] + values[7];
+
+	result.values[8] = values[8] * other.values[0] + values[9] * other.values[4] + values[10] * other.values[8];
+	result.values[9] = values[8] * other.values[1] + values[9] * other.values[5] + values[10] * other.values[9];
+	result.values[10] = values[8] * other.values[2] + values[9] * other.values[6] + values[10] * other.values[10];
+	result.values[11] = values[8] * other.values[3] + values[9] * other.values[7] + values[10] * other.values[11] + values[11];
+
+	return result;
+}
 
 Vecteur3D Matrix34::operator*(const Vecteur3D& vector) const
 {
