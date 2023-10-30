@@ -3,10 +3,9 @@
 #include "Quaternion.h"
 #include "Matrix33.h"
 
-Matrix34 Matrix34::operator*(const Matrix34& other) const
-{
-
-}
+//Matrix34 Matrix34::operator*(const Matrix34& other) const
+//{
+//}
 
 Vecteur3D Matrix34::operator*(const Vecteur3D& vector) const
 {
@@ -54,12 +53,12 @@ void Matrix34::setOrientationAndPosition(const Quaternion& q, const Vecteur3D& p
 	values[11] = pos.getZ();
 }	
 
-Vecteur3D Matrix34::TransformPosition(const Vecteur3D& vector)
-{
+//Vecteur3D Matrix34::TransformPosition(const Vecteur3D& vector)
+//{
+//
+//}	
 
-}	
-
-Vecteur3D Matrix34::TransformDirection(const Vecteur3D& vector)
-{
-
-}
+//Vecteur3D Matrix34::TransformDirection(const Vecteur3D& vector)
+//{
+//
+//}

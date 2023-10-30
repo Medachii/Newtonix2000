@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|x64">
@@ -107,6 +107,8 @@
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="Ground.cpp" />
     <ClCompile Include="Integrateur.cpp" />
+    <ClCompile Include="Matrix33.cpp" />
+    <ClCompile Include="Matrix34.cpp" />
     <ClCompile Include="ParticleAnchorSpring.cpp" />
     <ClCompile Include="ParticleCable.cpp" />
     <ClCompile Include="ParticleContact.cpp" />
@@ -120,6 +122,8 @@
     <ClCompile Include="ParticleRod.cpp" />
     <ClCompile Include="ParticleSpring.cpp" />
     <ClCompile Include="Particule.cpp" />
+    <ClCompile Include="Quaternion.cpp" />
+    <ClCompile Include="RigidBody.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\ofApp.cpp" />
     <ClCompile Include="Vecteur3D.cpp" />
@@ -128,6 +132,8 @@
     <ClInclude Include="Collision.h" />
     <ClInclude Include="Ground.h" />
     <ClInclude Include="Integrateur.h" />
+    <ClInclude Include="Matrix33.h" />
+    <ClInclude Include="Matrix34.h" />
     <ClInclude Include="ParticleAnchorSpring.h" />
     <ClInclude Include="ParticleCable.h" />
     <ClInclude Include="ParticleContact.h" />
@@ -141,6 +147,8 @@
     <ClInclude Include="ParticleRod.h" />
     <ClInclude Include="ParticleSpring.h" />
     <ClInclude Include="Particule.h" />
+    <ClInclude Include="Quaternion.h" />
+    <ClInclude Include="RigidBody.h" />
     <ClInclude Include="src\ofApp.h" />
     <ClInclude Include="Vecteur3D.h" />
   </ItemGroup>

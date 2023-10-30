@@ -54,6 +54,10 @@
     <ClCompile Include="Collision.cpp">
       <Filter>collision</Filter>
     </ClCompile>
+    <ClCompile Include="Matrix33.cpp" />
+    <ClCompile Include="Matrix34.cpp" />
+    <ClCompile Include="Quaternion.cpp" />
+    <ClCompile Include="RigidBody.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -117,6 +121,10 @@
     <ClInclude Include="Collision.h">
       <Filter>collision</Filter>
     </ClInclude>
+    <ClInclude Include="Matrix33.h" />
+    <ClInclude Include="Matrix34.h" />
+    <ClInclude Include="Quaternion.h" />
+    <ClInclude Include="RigidBody.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="icon.rc" />

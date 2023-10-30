@@ -74,10 +74,10 @@ Matrix33 Matrix33::Transpose() {
 	return result;
 }
 
-void Matrix33::setOrientation(const Quaternion& q)
-{
-	
-}	
+//void Matrix33::setOrientation(const Quaternion& q)
+//{
+//	
+//}	
 
 void Matrix33::setValues(double val0, double val1, double val2, double val3, double val4, double val5, double val6, double val7, double val8)
 {
