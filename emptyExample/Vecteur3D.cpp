@@ -28,13 +28,31 @@ double Vecteur3D::getX()
 	return x;
 }
 
+const double Vecteur3D::getX() const
+{
+	// Accesseur
+	return x;
+}
+
 double Vecteur3D::getY()
 {
 	// Accesseur
 	return y;
 }
 
+const double Vecteur3D::getY() const
+{
+	// Accesseur
+	return y;
+}
+
 double Vecteur3D::getZ()
+{
+	// Accesseur
+	return z;
+}
+
+const double Vecteur3D::getZ() const
 {
 	// Accesseur
 	return z;
