@@ -29,6 +29,16 @@ void RigidBody::setLinearDamping(double damping)
 	this->linearDamping = damping;
 }
 
+double RigidBody::getAngularDamping()
+{
+	return this->angularDamping;
+}
+
+void RigidBody::setAngularDamping(double damping)
+{
+	this->angularDamping = damping;
+}
+
 Vecteur3D RigidBody::getPosition()
 {
 	return this->position;
@@ -48,6 +58,26 @@ void RigidBody::setVelocity(Vecteur3D vel)
 {
 	this->velocity = vel;
 }
+
+Vecteur3D RigidBody::getForceAccum()
+{
+	return this->forceAccum;
+}
+
+void RigidBody::setForceAccum(Vecteur3D force)
+{
+	this->forceAccum = force;
+}
+
+Vecteur3D RigidBody::getTorqueAccum()
+{
+	return this->torqueAccum;
+}
+
+void RigidBody::setTorqueAccum(Vecteur3D torque)
+{
+	this->torqueAccum = torque;
+}	
 
 Quaternion RigidBody::getOrientation()
 {
@@ -81,5 +111,16 @@ void RigidBody::setTransformMatrix(Matrix34 matrix)
 
 void RigidBody::integrate(double duration)
 {
+
+}
+
+void RigidBody::addForce(const Vecteur3D& force)
+{
+	this->setForceAccum(this->getForceAccum() + force);
+}
+
+void RigidBody::calculateDerivedData()
+{
+
 }
 
