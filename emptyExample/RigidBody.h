@@ -3,6 +3,7 @@
 #include "Vecteur3D.h"
 #include "Quaternion.h"
 #include "Matrix34.h"
+#include <glm/fwd.hpp>
 
 class RigidBody
 {
@@ -44,6 +45,7 @@ public :
 	void setRotation(Vecteur3D rot);
 	Matrix34 getTransformMatrix();
 	void setTransformMatrix(Matrix34 matrix);
+
 
 	void addForce(const Vecteur3D& force);
 	void addForceAtPoint(const Vecteur3D& force, const Vecteur3D& point);

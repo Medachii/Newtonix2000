@@ -20,7 +20,7 @@
 #include "../ParticleAnchorSpring.h"
 #include "../ParticleForceRegistry.h"
 #include "../ParticleContactResolver.h"
-
+#include "../RigidBody.h"
 
 class ofApp : public ofBaseApp {
 public:
@@ -33,6 +33,7 @@ public:
 
 	ParticleForceRegistry* registry = new ParticleForceRegistry;
 	vector<Particule*> listParticules;
+	vector<RigidBody*> listRigidBodies;
 	int* numberOfParticles= new int(0);
 	vector<Particule> trails;
 	ParticleContactResolver* resolver = new ParticleContactResolver();
@@ -78,9 +79,7 @@ public:
 	void mouseDragged(int x, int y, int button);
 	void mousePressed(int x, int y, int button);
 	void mouseReleased(int x, int y, int button);
-	void mouseEntered(int x, int y);
-	void mouseExited(int x, int y);
-	void windowResized(int w, int h);
+
 	void dragEvent(ofDragInfo dragInfo);
 	void gotMessage(ofMessage msg);
 	void restartButtonPressed();

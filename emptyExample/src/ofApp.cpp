@@ -2,6 +2,7 @@
 
 
 
+
 void ofApp::initializeParticles() {
 	gravite = Vecteur3D(0, -9.8, 0);
 	ParticleGravity* Pgravity = new ParticleGravity();
@@ -23,30 +24,6 @@ void ofApp::initializeParticles() {
 	Particule* p9 = new Particule(numberOfParticles,Vecteur3D(30, 0, -150), Vecteur3D(60, 100, 0), Vecteur3D(0, 0, 0), 10, 1, ofColor::purple);
 	
 
-	//Particule p6 = Particule(6, Vecteur3D(-300, 20, 0), Vecteur3D(30, 100, 20), Vecteur3D(0, 0, 0));
-	//p6.setColor(ofColor::red);
-	//numberOfParticles++;
-	//
-	//Particule p7 = Particule(7,Vecteur3D(-400, 0, 0),Vecteur3D(50, 70, 20), Vecteur3D(0, 0, 0));
-	//p7.setColor(ofColor::red);
-	//numberOfParticles++;
-
-	//Particule p8 = Particule(8,Vecteur3D(10., 5, 30),Vecteur3D(5, 5, 0),Vecteur3D(0,0,0));
-	//p8.setColor(ofColor::yellow);
-	//numberOfParticles++;
-
-	//Particule p9 = Particule(9, Vecteur3D(40., 5, 70), Vecteur3D(-5, 5, 0),Vecteur3D(0,0,0));
-	//p9.setColor(ofColor::yellow);
-	//numberOfParticles++;
-
-	//Particule p10 = Particule(10, Vecteur3D(-20, 20, 60), Vecteur3D(0, -20, 0),Vecteur3D(0,0,0));
-	//p10.setColor(ofColor::purple);
-	//numberOfParticles++;
-	//
-	//Particule p11 = Particule(11, Vecteur3D(-210, 0, -210), Vecteur3D(0, 0, 0), Vecteur3D(0, 0, 0));
-	//p11.setColor(ofColor::hotPink);
-	//numberOfParticles++;
-
 
 	ParticleCable* cable = new ParticleCable();
 
@@ -66,40 +43,6 @@ void ofApp::initializeParticles() {
 
 
 
-	//ParticleCable cable2;
-	//cable2.setParticleCable(p3, p5, 100, 0.4);
-	//cables.push_back(cable2);
-	//numberOfCables++;
-
-	//ParticleCable cable3;
-	//cable3.setParticleCable(p4, p8, 300, 0.5);
-	//cables.push_back(cable3);
-	//numberOfCables++;
-
-	//ParticleRod rod;
-	//rod.setParticleRod(p6, p7, 100);
-	//rods.push_back(rod);
-	//numberOfRods++;
-
-
-
-	//ParticleSpring* Pspring8 = new ParticleSpring(&p9, 1, 10);
-	////ParticleSpring* Pspring9 = new ParticleSpring(&p8, 1, 10);
-	//springs.push_back(*Pspring8);
-
-	//ParticleSpring* Pspring4 = new ParticleSpring(&p6, 1, 100);
-	//springs.push_back(*Pspring4);
-	//ParticleSpring* Pspring6 = new ParticleSpring(&p4, 1, 100);
-	//springs.push_back(*Pspring6);
-
-	//ParticleAnchorSpring* anchor = new ParticleAnchorSpring(Vecteur3D(-200, 0, -200), 3, 30);
-	//anchorsLink.push_back(std::make_pair(p11, Vecteur3D(-200, 0, -200)));
-
-
-	//ParticleForceRegistry::ParticleForceRegistration* pfr = new ParticleForceRegistry::ParticleForceRegistration();
-	//pfr->particule = p1;
-	//pfr->fg = Pgravity;
-	//registry->my_registry.push_back(*pfr);
 
 	ParticleSpring* Pspring4 = new ParticleSpring(p4, 1, 30);
 	ParticleSpring* Pspring3 = new ParticleSpring(p3, 1, 30);
@@ -123,34 +66,7 @@ void ofApp::initializeParticles() {
 	registry->my_registry.push_back({ p8, Pgravity });
 	registry->my_registry.push_back({ p8, Pspring7 });
 	registry->my_registry.push_back({ p9, Pgravity });
-	//registry->my_registry.push_back({ &p8, Pgravity });
-	//registry->my_registry.push_back({ &p9, Pgravity });
-	//registry->my_registry.push_back({ &p10,Pgravity });
-	//registry->my_registry.push_back({ &p11,Pgravity });
-	//registry->my_registry.push_back({ &p11,anchor });
 
-
-	//registry2.push_back(std::make_pair(p1, Pgravity));
-	//registry2.push_back(std::make_pair(p1, Pdrag));
-	//registry2.push_back(std::make_pair(p2, Pgravity));
-	//registry2.push_back(std::make_pair(p3, Pgravity));
-	//registry2.push_back(std::make_pair(p4, Pgravity));
-
-	//registry2.push_back(std::make_pair(p5, Pgravity));
-	//registry2.push_back(std::make_pair(p6, Pgravity));
-	//registry2.push_back(std::make_pair(p7, Pgravity));
-	//registry2.push_back(std::make_pair(p8, Pgravity));
-	//registry2.push_back(std::make_pair(p9, Pgravity));
-	//registry2.push_back(std::make_pair(p8, Pdrag));
-	//registry2.push_back(std::make_pair(p9, Pdrag));
-	//registry2.push_back(std::make_pair(p8, Pspring8));
-	////registry2.push_back(std::make_pair(p9, Pspring9));
-
-	//registry2.push_back(std::make_pair(p10, Pgravity));
-	//registry2.push_back(std::make_pair(p11, Pgravity));
-	//registry2.push_back(std::make_pair(p11, anchor));
-
-	//registry.updateForces(0.2);
 
 
 	listParticules.push_back(p1);
@@ -179,7 +95,22 @@ void ofApp::initializeParticles() {
 	//trails.push_back(p11);
 
 
-	//ground.setXYZ(0, -100, 0);
+	RigidBody * rb1 = new RigidBody();
+	rb1->setInverseMass(1);
+	rb1->setLinearDamping(0.95);
+	rb1->setAngularDamping(0.8);
+	rb1->setPosition(Vecteur3D(0, 0, 0));
+	rb1->setVelocity(Vecteur3D(0, 0, 0));
+	rb1->setForceAccum(Vecteur3D(0, 0, 0));
+	rb1->setTorqueAccum(Vecteur3D(0, 0, 0));
+	Quaternion q = Quaternion(1, 1, 1, 0);
+	q.Normalized();
+	rb1->setOrientation(q);
+	rb1->setRotation(Vecteur3D(0, 0, 0));
+	rb1->setTransformMatrix(Matrix34());
+
+	listRigidBodies.push_back(rb1);
+	
 }
 
 
@@ -405,103 +336,10 @@ void ofApp::restartButtonPressed() {
 
 }
 
-void ofApp::addParticleButtonPressed() {
-	/*numberOfParticles++;
-	Particule pr = Particule();
-
-	double randomX = ofRandom(-70, 100);
-	double randomY = ofRandom(-70, 100);
-	double randomZ = ofRandom(-70, 100);
-	double randomVX = ofRandom(-100, 100);
-	double randomVY = ofRandom(-100, 100);
-	double randomVZ = ofRandom(-100, 100);
-	pr.setPosition(Vecteur3D(randomX, randomY, randomZ));
-	pr.setVelocite(Vecteur3D(randomVX, randomVY, randomVZ));
-	pr.setId(numberOfParticles);
-	numberOfParticles++;
 
 
-	registry2.push_back(std::make_pair(pr, new ParticleGravity()));
-	listParticules.push_back(pr);
-	trails.push_back(pr);*/
-}
-
-void ofApp::addCableButtonPressed() {
-	/*numberOfParticles++;
-	Particule pone = Particule();
-	Particule ptwo = Particule();
-	double randomX = ofRandom(-70, 100);
-	double randomX2 = ofRandom(-70, 100);
-	double randomY = ofRandom(-70, 100);
-	double randomY2 = ofRandom(-70, 100);
-	double randomZ = ofRandom(-70, 100);
-	double randomZ2 = ofRandom(-70, 100);
-	double randomVX = ofRandom(-100, 100);
-	double randomVX2 = ofRandom(-100, 100);
-	double randomVY = ofRandom(-100, 100);
-	double randomVY2 = ofRandom(-100, 100);
-	double randomVZ = ofRandom(-100, 100);
-	double randomVZ2 = ofRandom(-100, 100);
-	pone.setPosition(Vecteur3D(randomX, randomY, randomZ));
-	pone.setVelocite(Vecteur3D(randomVX, randomVY, randomVZ));
-	pone.setId(numberOfParticles);
-	numberOfParticles++;
-	ptwo.setPosition(Vecteur3D(randomX2, randomY2, randomZ2));
-	ptwo.setVelocite(Vecteur3D(randomVX2, randomVY2, randomVZ2));
-	ptwo.setId(numberOfParticles);
-	numberOfParticles++;
-	ParticleCable cable;
-	double randomCable = ofRandom(50, 300);
-	cable.setParticleCable(pone, ptwo, randomCable, 0.4);
-	cables.push_back(cable);
-	numberOfCables++;
-	registry2.push_back(std::make_pair(pone, new ParticleGravity()));
-	registry2.push_back(std::make_pair(ptwo, new ParticleGravity()));
-	listParticules.push_back(pone);
-	listParticules.push_back(ptwo);
-	trails.push_back(pone);
-	trails.push_back(ptwo);*/
-
-}
 
 
-void ofApp::addRodButtonPressed() {
-	//numberOfParticles++;
-	////create two particles with random position and velocity that will be linked by a rod
-	//Particule pone = Particule();
-	//Particule ptwo = Particule();
-	//double randomX = ofRandom(-70, 100);
-	//double randomX2 = ofRandom(-70, 100);
-	//double randomY = ofRandom(-70, 100);
-	//double randomY2 = ofRandom(-70, 100);
-	//double randomZ = ofRandom(-70, 100);
-	//double randomZ2 = ofRandom(-70, 100);
-	//double randomVX = ofRandom(-100, 100);
-	//double randomVX2 = ofRandom(-100, 100);
-	//double randomVY = ofRandom(-100, 100);
-	//double randomVY2 = ofRandom(-100, 100);
-	//double randomVZ = ofRandom(-100, 100);
-	//double randomVZ2 = ofRandom(-100, 100);
-	//pone.setPosition(Vecteur3D(randomX, randomY, randomZ));
-	//pone.setVelocite(Vecteur3D(randomVX, randomVY, randomVZ));
-	//pone.setId(numberOfParticles);
-	//numberOfParticles++;
-	//ptwo.setPosition(Vecteur3D(randomX2, randomY2, randomZ2));
-	//ptwo.setVelocite(Vecteur3D(randomVX2, randomVY2, randomVZ2));
-	//ptwo.setId(numberOfParticles);
-	//numberOfParticles++;
-	//ParticleRod rod;
-	//rod.setParticleRod(pone, ptwo, 100);
-	//rods.push_back(rod);
-	//numberOfRods++;
-	//registry2.push_back(std::make_pair(pone, new ParticleGravity()));
-	//registry2.push_back(std::make_pair(ptwo, new ParticleGravity()));
-	//listParticules.push_back(pone);
-	//listParticules.push_back(ptwo);
-	//trails.push_back(pone);
-	//trails.push_back(ptwo);
-
-}
 
 
 //--------------------------------------------------------------
@@ -523,15 +361,29 @@ void ofApp::draw() {
 	/*ofSetColor(150,0,160);
 	ofDrawSphere(p1.getPosition().getX(), p1.getPosition().getY(), p1.getPosition().getZ(), 10);*/
 
+	//draw the rigid body
+	ofSetColor(0, 0, 0);
+	for (int i = 0; i < listRigidBodies.size(); i++) {
+		//draw a box with the position and the ORIENTATION of the rigid body using ofBoxPrimitive
+		ofCylinderPrimitive cylindre;
+		cylindre.setResolution(50, 50, 50);
+		cylindre.setPosition(listRigidBodies[i]->getPosition().getX(), listRigidBodies[i]->getPosition().getY(), listRigidBodies[i]->getPosition().getZ());
+		cylindre.setOrientation(glm::quat(listRigidBodies[i]->getOrientation().getW(), listRigidBodies[i]->getOrientation().getX(), listRigidBodies[i]->getOrientation().getY(), listRigidBodies[i]->getOrientation().getZ()));
+		cylindre.draw();
+		
+
+		
+	}
+	
 
 	//Draw trails of particles
-	for (int i = 0; i < trails.size(); i++) {
+	/*for (int i = 0; i < trails.size(); i++) {
 
 
 		ofSetColor(30, 150, 160);
 
 		ofDrawSphere(trails[i].getPosition().getX(), trails[i].getPosition().getY(), trails[i].getPosition().getZ(), 1);
-	}
+	}*/
 
 	for (int k = 0; k < listParticules.size(); k++) {
 		ofSetColor(listParticules[k]->getColor());
@@ -595,21 +447,10 @@ void ofApp::keyPressed(int key) {
 		}
 	}
 
-	if (key == 'r') {
+	/*if (key == 'r') {
 		restartButtonPressed();
-	}
+	}*/
 
-	if (key == 'a') {
-		addParticleButtonPressed();
-	}
-
-	if (key == 'c') {
-		addCableButtonPressed();
-	}
-
-	if (key == 'e') {
-		addRodButtonPressed();
-	}
 }
 
 //--------------------------------------------------------------
@@ -638,19 +479,19 @@ void ofApp::mouseReleased(int x, int y, int button) {
 }
 
 //--------------------------------------------------------------
-void ofApp::mouseEntered(int x, int y) {
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseExited(int x, int y) {
-
-}
-
-//--------------------------------------------------------------
-void ofApp::windowResized(int w, int h) {
-
-}
+//void ofApp::mouseEntered(int x, int y) {
+//
+//}
+//
+////--------------------------------------------------------------
+//void ofApp::mouseExited(int x, int y) {
+//
+//}
+//
+////--------------------------------------------------------------
+//void ofApp::windowResized(int w, int h) {
+//
+//}
 
 //--------------------------------------------------------------
 void ofApp::gotMessage(ofMessage msg) {
