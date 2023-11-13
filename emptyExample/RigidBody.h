@@ -6,7 +6,7 @@
 #include "Matrix33.h"
 #include <glm/fwd.hpp>
 
-class RigidBody
+class RigidBody 
 {
 private:
 	double inverseMass;
