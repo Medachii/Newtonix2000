@@ -58,9 +58,11 @@ Quaternion Quaternion::operator+(const Quaternion& other) const
 	result.values[3] = values[3] + other.values[3];
 	return result;
 }
-
+//
 //void Quaternion::RotateByVector(const Vecteur3D& vector)
 //{
+//	Quaternion q(0, vector.getX(), vector.getY(), vector.getZ());
+//	(*this) = (*this) + (q * (*this));
 //}
 
 void Quaternion::UpdateByAngularVelocity(const Vecteur3D& angularVelocity, double duration)

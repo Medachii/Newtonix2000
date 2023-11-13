@@ -21,3 +21,7 @@ void Integrateur::integrer(Particule* p, double time)
 	p->setPosition(position.add(velocite.mul(time)));
 	p->setVelocite(velocite.add(acceleration.mul(time)));
 }
+
+void Integrateur::integrer(RigidBody* r, double time) {
+	r->integrate(time);
+}

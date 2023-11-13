@@ -112,6 +112,19 @@ void RigidBody::setTransformMatrix(Matrix34 matrix)
 void RigidBody::integrate(double duration)
 {
 
+	//mise à jour de la position
+	this->position = this->position + this->velocity * duration;
+	//mise à jour de l'orientation
+	this->orientation.UpdateByAngularVelocity(this->rotation, duration);
+	//Calculer les valeurs dérivées (matrice de transformation et I^-1')
+	this->calculateDerivedData();
+	//Calculer l'accélération linéaire p.. = F/m
+	Vecteur3D acceleration = this->forceAccum * this->inverseMass;
+	//Calculer l'accélération angulaire a.. = I^-1' * T
+	
+
+
+
 }
 
 void RigidBody::addForce(const Vecteur3D& force)
@@ -122,7 +135,13 @@ void RigidBody::addForce(const Vecteur3D& force)
 void RigidBody::calculateDerivedData()
 {
 
+	//calculate the transform matrix from orientation and position
+	//this->transformMatrix.setOrientationAndPos(this->orientation, this->position);
+
+
 }
+
+
 
 
 

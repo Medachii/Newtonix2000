@@ -100,13 +100,13 @@ void ofApp::initializeParticles() {
 	rb1->setLinearDamping(0.95);
 	rb1->setAngularDamping(0.8);
 	rb1->setPosition(Vecteur3D(0, 0, 0));
-	rb1->setVelocity(Vecteur3D(0, 0, 0));
+	rb1->setVelocity(Vecteur3D(0, 10, 0));
 	rb1->setForceAccum(Vecteur3D(0, 0, 0));
 	rb1->setTorqueAccum(Vecteur3D(0, 0, 0));
 	Quaternion q = Quaternion(1, 1, 1, 0);
 	q.Normalized();
 	rb1->setOrientation(q);
-	rb1->setRotation(Vecteur3D(0, 0, 0));
+	rb1->setRotation(Vecteur3D(30, 50, 0));
 	rb1->setTransformMatrix(Matrix34());
 
 	listRigidBodies.push_back(rb1);
@@ -266,6 +266,9 @@ void ofApp::update() {
 	for (int k = 0; k < listParticules.size(); k++) {
 		i.integrer(listParticules[k], t);
 		trails.push_back(*listParticules[k]);
+	}
+	for (int l = 0; l < listRigidBodies.size(); l++) {
+		i.integrer(listRigidBodies[l], t);
 	}
 
 	//replace all velocity of particles in cables and rods and registry2
