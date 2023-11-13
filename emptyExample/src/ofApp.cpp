@@ -103,10 +103,10 @@ void ofApp::initializeParticles() {
 	rb1->setVelocity(Vecteur3D(0, 10, 0));
 	rb1->setForceAccum(Vecteur3D(0, 0, 0));
 	rb1->setTorqueAccum(Vecteur3D(0, 0, 0));
-	Quaternion q = Quaternion(1, 1, 1, 0);
+	Quaternion q = Quaternion(1, 0, 0, 0);
 	q.Normalized();
 	rb1->setOrientation(q);
-	rb1->setRotation(Vecteur3D(30, 50, 0));
+	rb1->setRotation(Vecteur3D(1,0, 0));
 	rb1->setTransformMatrix(Matrix34());
 
 	listRigidBodies.push_back(rb1);

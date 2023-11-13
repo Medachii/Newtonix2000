@@ -10,3 +10,4 @@ void ParticleGravity::setGravity(Vecteur3D g)
 {
 	gravity = g;
 }
+

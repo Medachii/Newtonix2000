@@ -121,8 +121,14 @@ void RigidBody::integrate(double duration)
 	//Calculer l'accélération linéaire p.. = F/m
 	Vecteur3D acceleration = this->forceAccum * this->inverseMass;
 	//Calculer l'accélération angulaire a.. = I^-1' * T
-	
+	Vecteur3D angularAcceleration = InverseInertiaTensor * torqueAccum;
+	//Mettre à jour la vélocité linéaire
+	this->velocity = this->velocity + acceleration * duration;
+	//Mettre à jour la vélocité angulaire
+	this->rotation = this->rotation + angularAcceleration * duration;
 
+	//Réinitialiser les forces et les torques
+	this->clearAccumulator();
 
 
 }
@@ -134,14 +140,37 @@ void RigidBody::addForce(const Vecteur3D& force)
 
 void RigidBody::calculateDerivedData()
 {
+	//call each frame to calculate the transform matrix and normalize the orientation
+	this->orientation.Normalized();
+	//this->transformMatrix.setOrientationAndPosition(this->orientation, this->position);
 
-	//calculate the transform matrix from orientation and position
-	//this->transformMatrix.setOrientationAndPos(this->orientation, this->position);
+	//calculate the intertia matrix for a cylinder
+	double mass = 1.0f / this->inverseMass;
+	double radius = 1.0f;
+	double height = 1.0f;
+	//create a matrix with the inertia tensor values
+
+InverseInertiaTensor.setValues(0.083f * mass * (3.0f * radius * radius + height * height), 0.0f, 0.0f,
+0.0f, 0.083f * mass * (3.0f * radius * radius + height * height), 0.0f,
+0.0f, 0.0f, 0.5f * mass * radius * radius);
+
+
+
+
+	this->transformMatrix.Inverse();
+
+
 
 
 }
 
 
+void RigidBody::clearAccumulator()
+{
+	this->setForceAccum(Vecteur3D(0, 0, 0));
+	this->setTorqueAccum(Vecteur3D(0, 0, 0));
+
+}
 
 
 

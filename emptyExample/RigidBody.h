@@ -3,6 +3,7 @@
 #include "Vecteur3D.h"
 #include "Quaternion.h"
 #include "Matrix34.h"
+#include "Matrix33.h"
 #include <glm/fwd.hpp>
 
 class RigidBody
@@ -20,6 +21,7 @@ private:
 	Quaternion orientation;
 	Vecteur3D rotation;
 	Matrix34 transformMatrix;
+	Matrix33 InverseInertiaTensor;
 
 public :
 	RigidBody();

@@ -69,6 +69,8 @@ void Quaternion::UpdateByAngularVelocity(const Vecteur3D& angularVelocity, doubl
 {
 	Quaternion result;
 	result = (*this) + (Quaternion(0, angularVelocity.getX(), angularVelocity.getY(), angularVelocity.getZ()) * (*this) * (duration/2));
+	result.Normalized();
+	(*this) = result;
 }
 
 const double Quaternion::getW() const
